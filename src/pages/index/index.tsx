@@ -20,12 +20,17 @@ export default function IndexPage() {
         </Link>
       </p>
       <p>
+        <Link href="/login">
+          <a>Log In</a>
+        </Link>
+      </p>
+      <p>
         <Link href="/signup">
           <a>Sign Up</a>
         </Link>
       </p>
       <p>
-        <a onClick={() => onLogoutPress()}>Log Out</a>
+        <a href="#" onClick={() => onLogoutPress()}>Log Out</a>
       </p>
     </div>
   );

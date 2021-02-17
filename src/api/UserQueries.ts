@@ -8,6 +8,13 @@ export default {
       )
     }
   `,
+  login: gql`
+    query Login($data: UserLoginInput!) {
+      login(
+          data: $data
+      )
+    }
+  `,
   getCurrentUser: gql`
     query {
       getCurrentUser {
