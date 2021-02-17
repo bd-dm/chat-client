@@ -62,10 +62,10 @@ export default function SignupPage() {
   return (
     <div>
       <FormRow label="E-Mail">
-        <TextInput onValueChange={onChange('email')} />
+        <TextInput name="email" onValueChange={onChange('email')} />
       </FormRow>
       <FormRow label="Пароль">
-        <TextInput onValueChange={onChange('password')} />
+        <TextInput name="password" onValueChange={onChange('password')} />
       </FormRow>
       <FormRow>
         <Button isLoading={loading} onPress={onLoginPress}>

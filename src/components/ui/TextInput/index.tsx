@@ -11,7 +11,7 @@ export default function TextInput(props: ITextInputProps) {
 
   return (
     <>
-      <input type="text" onChange={onChange} />
+      <input name={props.name} type="text" onChange={onChange} />
     </>
   );
 }
