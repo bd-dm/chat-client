@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { AppProps } from 'next/app';
 
@@ -8,9 +8,19 @@ import { ApolloProvider } from '@apollo/client';
 import { persistStore } from '@models';
 
 function App({ Component, pageProps }: AppProps) {
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
-    persistStore().then();
+    (async () => {
+      await persistStore();
+
+      setIsLoading(false);
+    })();
   });
+
+  if (isLoading) {
+    return <p>Загрузка приложения...</p>;
+  }
 
   return (
     <ApolloProvider client={ApiClient}>

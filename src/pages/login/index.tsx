@@ -23,7 +23,7 @@ interface ILoginFormState {
   password: string;
 }
 
-export default function SignupPage() {
+export default function LoginPage() {
   useAuth({
     allowedStates: [IUserAuthState.GUEST],
   });

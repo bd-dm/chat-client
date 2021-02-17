@@ -15,6 +15,11 @@ export default function IndexPage() {
         Hello world!
       </p>
       <p>
+        <Link href="/chat">
+          <a>Chat</a>
+        </Link>
+      </p>
+      <p>
         <Link href="/profile">
           <a>Profile</a>
         </Link>
