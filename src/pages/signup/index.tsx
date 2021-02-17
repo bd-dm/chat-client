@@ -1,15 +1,18 @@
 import React, { useState } from 'react';
 
-import { useRouter } from 'next/router';
-
 import UserQueries from '@api/UserQueries';
 
 import Button from '@components/ui/Button';
 import FormRow from '@components/ui/FormRow';
 import TextInput from '@components/ui/TextInput';
 
-import { Mutation, MutationSignupArgs } from '@/definitions/graphql';
-import User from '@/lib/classes/User';
+import { Mutation, MutationSignupArgs } from '@definitions/graphql';
+import { IUserAuthState } from '@definitions/user';
+
+import useAuth from '@lib/hooks/useAuth';
+
+import User from '@models/User';
+
 import { useMutation } from '@apollo/client';
 
 interface ISignupFormState {
@@ -18,11 +21,14 @@ interface ISignupFormState {
 }
 
 export default function SignupPage() {
+  useAuth({
+    allowedStates: [IUserAuthState.GUEST],
+  });
+
   const [formState, setFormState] = useState<ISignupFormState>({
     email: '',
     password: '',
   });
-  const router = useRouter();
 
   const [signup, { loading }] = useMutation<Pick<Mutation, 'signup'>, MutationSignupArgs>(UserQueries.signup);
 
@@ -39,7 +45,6 @@ export default function SignupPage() {
 
       if (data.data) {
         await User.login(data.data?.signup);
-        await router.replace('/profile');
       }
     } catch (e) {
       console.error(e);

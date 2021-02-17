@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { IButtonProps } from '@/definitions/ui';
+import { IButtonProps } from '@definitions/ui';
 
 export default function Button(props: IButtonProps) {
   const {

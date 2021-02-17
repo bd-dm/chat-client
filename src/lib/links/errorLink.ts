@@ -1,5 +1,5 @@
-import config from '@/config';
 import { onError } from '@apollo/client/link/error';
+import config from '@config';
 
 export default onError(({
   graphQLErrors,

@@ -10,7 +10,7 @@ module.exports = {
             '@api': path.resolve('./src/api'),
             '@components': path.resolve('./src/components'),
             '@pages': path.resolve('./src/pages'),
-            '@store': path.resolve('./src/store'),
+            '@store': path.resolve('./src/models'),
             '@assets': path.resolve('./src/assets'),
         };
 

@@ -24,12 +24,7 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@api/*": ["./src/api/*"],
-      "@components/*": ["./src/components/*"],
-      "@pages/*": ["./src/pages/*"],
-      "@store/*": ["./src/store/*"],
-      "@assets/*": ["./src/assets/*"]
+      "@*": ["./src/*"],
     }
   },
   "exclude": ["node_modules"],

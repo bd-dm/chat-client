@@ -1,4 +1,5 @@
-import User from '@/lib/classes/User';
+import User from '@models/User';
+
 import { setContext } from '@apollo/client/link/context';
 
 export default setContext(async (_, { headers }) => {

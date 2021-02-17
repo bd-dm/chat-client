@@ -1,6 +1,6 @@
 import React, { FormEvent } from 'react';
 
-import { ITextInputProps } from '@/definitions/ui';
+import { ITextInputProps } from '@definitions/ui';
 
 export default function TextInput(props: ITextInputProps) {
   const onChange = (e: FormEvent<HTMLInputElement>) => {
