@@ -3,7 +3,7 @@ import React from 'react';
 import stylesFile from './index.module.scss';
 
 import { IFormRowProps } from '@/definitions/ui';
-import { styleImport } from '@/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 const styles = styleImport(stylesFile);
 

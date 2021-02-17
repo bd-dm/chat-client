@@ -1,8 +1,14 @@
 import React, { useState } from 'react';
 
+import UserQueries from '@api/UserQueries';
+
 import Button from '@components/ui/Button';
 import FormRow from '@components/ui/FormRow';
 import TextInput from '@components/ui/TextInput';
+
+import { Mutation, MutationSignupArgs } from '@/definitions/graphql';
+import User from '@/lib/classes/User';
+import { useMutation } from '@apollo/client';
 
 interface ISignupFormState {
   email: string;
@@ -15,8 +21,25 @@ export default function SignupPage() {
     password: '',
   });
 
-  const onSignupPress = () => {
-    console.log('signup', formState);
+  const [signup, { loading }] = useMutation<Pick<Mutation, 'signup'>, MutationSignupArgs>(UserQueries.signup);
+
+  const onSignupPress = async () => {
+    try {
+      const data = await signup({
+        variables: {
+          data: {
+            email: formState.email,
+            password: formState.password,
+          },
+        },
+      });
+
+      if (data.data) {
+        await User.login(data.data?.signup);
+      }
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   const onChange = (field: keyof ISignupFormState) => (text: string) => {
@@ -35,8 +58,8 @@ export default function SignupPage() {
         <TextInput onValueChange={onChange('password')} />
       </FormRow>
       <FormRow>
-        <Button onPress={onSignupPress}>
-          Зарегистрироваться
+        <Button disabled={loading} onPress={onSignupPress}>
+          {loading ? 'Загрузка...' : 'Зарегистрироваться'}
         </Button>
       </FormRow>
     </div>
