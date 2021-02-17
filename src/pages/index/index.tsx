@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Link from 'next/link';
 
+import User from '@models/User';
+
 export default function IndexPage() {
+  const onLogoutPress = useCallback(() => {
+    User.logout().then();
+  }, []);
+
   return (
     <div>
       <p>
@@ -17,6 +23,9 @@ export default function IndexPage() {
         <Link href="/signup">
           <a>Sign Up</a>
         </Link>
+      </p>
+      <p>
+        <a onClick={() => onLogoutPress()}>Log Out</a>
       </p>
     </div>
   );

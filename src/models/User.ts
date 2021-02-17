@@ -2,15 +2,17 @@ import { IUserAuthState } from '@definitions/user';
 
 import { makeVar } from '@apollo/client';
 
-const token = makeVar('');
+const storeDefaultValues = {
+  token: '',
+};
 
 const userStore = {
-  token,
+  token: makeVar(storeDefaultValues.token),
 };
 
 class User {
   static async persistStore(): Promise<void> {
-    token(await User.getToken());
+    userStore.token(await User.getToken());
   }
 
   static async getAuthState(defToken: string | undefined = undefined): Promise<IUserAuthState> {
@@ -28,11 +30,12 @@ class User {
 
   static async login(_token: string): Promise<void> {
     await localStorage.setItem('token', _token);
-    token(_token);
+    userStore.token(_token);
   }
 
   static async logout(): Promise<void> {
     await localStorage.removeItem('token');
+    userStore.token(storeDefaultValues.token);
   }
 }
 
