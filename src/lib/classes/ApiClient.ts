@@ -1,4 +1,5 @@
 import config from '@/config';
+import authLink from '@/lib/links/authLink';
 import errorLink from '@/lib/links/errorLink';
 import {
   ApolloClient,
@@ -9,13 +10,14 @@ import {
 
 const link = from([
   errorLink,
+  authLink,
   new HttpLink({
     uri: config.apiHost,
   }),
 ]);
 
 export default new ApolloClient({
-  ssrMode: typeof window === 'undefined',
+  ssrMode: config.isServer,
   link,
   cache: new InMemoryCache(),
 });

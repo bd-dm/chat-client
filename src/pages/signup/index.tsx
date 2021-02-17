@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+import { useRouter } from 'next/router';
+
 import UserQueries from '@api/UserQueries';
 
 import Button from '@components/ui/Button';
@@ -20,6 +22,7 @@ export default function SignupPage() {
     email: '',
     password: '',
   });
+  const router = useRouter();
 
   const [signup, { loading }] = useMutation<Pick<Mutation, 'signup'>, MutationSignupArgs>(UserQueries.signup);
 
@@ -36,6 +39,7 @@ export default function SignupPage() {
 
       if (data.data) {
         await User.login(data.data?.signup);
+        await router.replace('/profile');
       }
     } catch (e) {
       console.error(e);
@@ -58,8 +62,8 @@ export default function SignupPage() {
         <TextInput onValueChange={onChange('password')} />
       </FormRow>
       <FormRow>
-        <Button disabled={loading} onPress={onSignupPress}>
-          {loading ? 'Загрузка...' : 'Зарегистрироваться'}
+        <Button isLoading={loading} onPress={onSignupPress}>
+          Зарегистрироваться
         </Button>
       </FormRow>
     </div>

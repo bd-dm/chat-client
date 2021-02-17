@@ -11,5 +11,6 @@ export interface IFormRowProps {
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   children: string;
+  isLoading?: boolean;
   onPress?: () => void;
 }

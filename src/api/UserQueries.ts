@@ -8,4 +8,12 @@ export default {
       )
     }
   `,
+  getCurrentUser: gql`
+    query {
+      getCurrentUser {
+        id
+        email      
+      }
+    }
+  `,
 };
