@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
-import initSocketIO from '@api/sockets';
+import { io } from 'socket.io-client';
 
 import { ISocketContextProviderProps, ISocketContextSocket, ISocketContextValue } from '@definitions/context';
+
+import config from '@config';
 
 export const socketContextDefaultValue: ISocketContextValue = {
   socket: null,
@@ -14,12 +16,31 @@ export const SocketContext = React.createContext<ISocketContextValue>(socketCont
 export const SocketContextProvider = (props: ISocketContextProviderProps) => {
   const [socket, setSocket] = useState<ISocketContextSocket>(null);
 
+  useEffect(() => {
+    if (socket) {
+      socket.on('connect', () => {
+        console.log(`socket connect: ${socket.id}`);
+      });
+
+      socket.on('disconnect', () => {
+        console.log(`socket disconnect: ${socket.id}`);
+        setSocket(null);
+      });
+
+      socket.on('error', () => {
+        console.error(`socket error: ${socket.id}`);
+      });
+    }
+  }, [socket]);
+
   const initSocket = () => {
     if (socket?.connected || !!socket) {
       return;
     }
 
-    const newSocket = initSocketIO();
+    const newSocket = io(config.apiSocketHost, {
+      path: config.apiSocketPath,
+    });
 
     setSocket(newSocket);
   };

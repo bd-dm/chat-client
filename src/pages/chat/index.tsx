@@ -30,7 +30,11 @@ export default function ChatPage() {
   const router = useRouter();
 
   useEffect(() => {
-    console.log('SOCKET!', socket);
+    if (socket) {
+      socket.on('event', (a1: string, a2: string) => {
+        console.log('event', a1, a2);
+      });
+    }
   }, [socket]);
 
   const { id: chatId } = router.query as IChatPageQuery;
