@@ -1,0 +1,23 @@
+.card {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+}
+
+.card:hover {
+  background-color: #efefef;
+}
+
+.avatar-wrapper {
+  border-radius: 50%;
+  height: 30px;
+  overflow: hidden;
+  position: relative;
+  width: 30px;
+}
+
+.name {
+  margin-left: 15px;
+}

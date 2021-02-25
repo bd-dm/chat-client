@@ -1,0 +1,20 @@
+.container {
+  background-color: #fafafa;
+  bottom: 0;
+  display: flex;
+  flex-direction: row;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.rooms {
+  flex: 1;
+}
+
+.messages {
+  background-color: #efefef;
+  display: flex;
+  flex: 5;
+}

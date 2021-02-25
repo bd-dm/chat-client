@@ -13,18 +13,31 @@ export type Scalars = {
 
 export type Query = {
   __typename?: 'Query';
-  login: Scalars['String'];
-  getCurrentUser?: Maybe<User>;
+  chatList: Array<ChatRoom>;
+  chatMessageList: Array<ChatMessage>;
+  userLogin: Scalars['String'];
+  userGetCurrent?: Maybe<User>;
 };
 
 
-export type QueryLoginArgs = {
+export type QueryChatMessageListArgs = {
+  data: ChatMessageListInput;
+};
+
+
+export type QueryUserLoginArgs = {
   data: UserLoginInput;
 };
 
-export type UserLoginInput = {
-  email: Scalars['String'];
-  password: Scalars['String'];
+export type ChatRoom = {
+  __typename?: 'ChatRoom';
+  id: Scalars['ID'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+  name: Scalars['String'];
+  users: Array<User>;
+  chatMessageIds: Array<Scalars['String']>;
+  chatMessages: Array<ChatMessage>;
 };
 
 export type User = {
@@ -33,16 +46,71 @@ export type User = {
   createdAt: Scalars['String'];
   updatedAt: Scalars['String'];
   email: Scalars['String'];
+  userToChatRooms: Array<UserToChatRoom>;
+  chatMessages: Array<ChatMessage>;
+};
+
+export type UserToChatRoom = {
+  __typename?: 'UserToChatRoom';
+  id: Scalars['ID'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+  userId: Scalars['String'];
+  chatRoomId: Scalars['String'];
+  role: Scalars['String'];
+  user: User;
+  chatRoom: ChatRoom;
+};
+
+export type ChatMessage = {
+  __typename?: 'ChatMessage';
+  id: Scalars['ID'];
+  createdAt: Scalars['String'];
+  updatedAt: Scalars['String'];
+  text: Scalars['String'];
+  author: User;
+  chatRoom: ChatRoom;
+};
+
+export type ChatMessageListInput = {
+  chatRoomId: Scalars['String'];
+};
+
+export type UserLoginInput = {
+  email: Scalars['String'];
+  password: Scalars['String'];
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  signup: Scalars['String'];
+  chatCreate: ChatRoom;
+  chatMessageSend: ChatMessage;
+  userSignup: Scalars['String'];
 };
 
 
-export type MutationSignupArgs = {
+export type MutationChatCreateArgs = {
+  data: ChatCreateInput;
+};
+
+
+export type MutationChatMessageSendArgs = {
+  data: ChatMessageSendInput;
+};
+
+
+export type MutationUserSignupArgs = {
   data: UserSignupInput;
+};
+
+export type ChatCreateInput = {
+  name: Scalars['String'];
+  userIds: Array<Scalars['String']>;
+};
+
+export type ChatMessageSendInput = {
+  chatRoomId: Scalars['String'];
+  text: Scalars['String'];
 };
 
 export type UserSignupInput = {

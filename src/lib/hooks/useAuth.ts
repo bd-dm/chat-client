@@ -12,16 +12,22 @@ interface IUseAuthOptions {
   allowedStates: IUserAuthState[],
 }
 
-const useAuth = (options: IUseAuthOptions) => {
+const defaultOptions = {
+  allowedStates: [
+    IUserAuthState.GUEST,
+    IUserAuthState.LOGGED_IN,
+  ],
+};
+
+const useAuth = (options: IUseAuthOptions = defaultOptions) => {
   const router = useRouter();
   const token = useReactiveVar(userStore.token);
 
   const {
-    allowedStates = [
-      IUserAuthState.GUEST,
-      IUserAuthState.LOGGED_IN,
-    ],
+    allowedStates,
   } = options;
+
+  const isAuthorized = !!token;
 
   useEffect(() => {
     (async () => {
@@ -31,6 +37,8 @@ const useAuth = (options: IUseAuthOptions) => {
       }
     })();
   }, [token]);
+
+  return isAuthorized;
 };
 
 export default useAuth;

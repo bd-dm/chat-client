@@ -14,3 +14,18 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   isLoading?: boolean;
   onPress?: () => void;
 }
+
+export interface IChatRoomCardProps {
+  onPress?: () => void;
+  name: string;
+}
+
+export interface IChatMessagesProps {
+  chatRoomId: string;
+}
+
+export interface IChatMessageProps {
+  name: string;
+  text: string;
+  date: Date;
+}

@@ -1,25 +1,50 @@
 import { gql } from '@apollo/client';
 
 export default {
-  signup: gql`
-    mutation Signup($data: UserSignupInput!) {
-      signup(
-          data: $data
-      )
+  userSignup: gql`
+    mutation UserSignup($data: UserSignupInput!) {
+      userSignup(data: $data)
     }
   `,
-  login: gql`
-    query Login($data: UserLoginInput!) {
-      login(
-          data: $data
-      )
+  userLogin: gql`
+    query UserLogin($data: UserLoginInput!) {
+      userLogin(data: $data)
     }
   `,
-  getCurrentUser: gql`
-    query {
-      getCurrentUser {
+  userGetCurrent: gql`
+    query UserGetCurrent {
+      userGetCurrent {
         id
-        email      
+        email
+      }
+    }
+  `,
+  chatList: gql`
+    query chatList {
+      chatList {
+        id
+        name
+      }
+    }
+  `,
+  chatMessageList: gql`
+    query ChatMessageList($data: ChatMessageListInput!) {
+      chatMessageList(data: $data) {
+        id
+        text
+        createdAt
+        author {
+          id
+          email
+        }
+      }
+    }
+  `,
+  chatMessageSend: gql`
+    mutation ChatMessageSend($data: ChatMessageSendInput!) {
+      chatMessageSend(data: $data) {
+        id
+        text
       }
     }
   `,

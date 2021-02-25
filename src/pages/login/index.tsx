@@ -7,8 +7,7 @@ import FormRow from '@components/ui/FormRow';
 import TextInput from '@components/ui/TextInput';
 
 import {
-  Query,
-  QueryLoginArgs,
+  Query, QueryUserLoginArgs,
 } from '@definitions/graphql';
 import { IUserAuthState } from '@definitions/user';
 
@@ -33,11 +32,11 @@ export default function LoginPage() {
     password: '',
   });
 
-  const [login, { loading, data }] = useLazyQuery<Pick<Query, 'login'>, QueryLoginArgs>(UserQueries.login);
+  const [login, { loading, data }] = useLazyQuery<Pick<Query, 'userLogin'>, QueryUserLoginArgs>(UserQueries.userLogin);
 
   useEffect(() => {
-    if (data?.login) {
-      User.login(data?.login).then();
+    if (data?.userLogin) {
+      User.login(data?.userLogin).then();
     }
   }, [data]);
 

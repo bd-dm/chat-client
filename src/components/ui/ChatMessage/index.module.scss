@@ -1,0 +1,30 @@
+.container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: row;
+  padding: 10px;
+  width: 100%;
+}
+
+.avatar-wrapper {
+  border-radius: 50%;
+  height: 30px;
+  margin-top: 5px;
+  overflow: hidden;
+  position: relative;
+  width: 30px;
+}
+
+.body {
+  flex: 1;
+  margin-left: 15px;
+}
+
+.name {
+  font-weight: 600;
+  margin-bottom: 5px;
+}
+
+.text {
+  font-size: 15px;
+}

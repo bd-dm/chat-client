@@ -6,7 +6,7 @@ import Button from '@components/ui/Button';
 import FormRow from '@components/ui/FormRow';
 import TextInput from '@components/ui/TextInput';
 
-import { Mutation, MutationSignupArgs } from '@definitions/graphql';
+import { Mutation, MutationUserSignupArgs } from '@definitions/graphql';
 import { IUserAuthState } from '@definitions/user';
 
 import useAuth from '@lib/hooks/useAuth';
@@ -30,7 +30,7 @@ export default function SignupPage() {
     password: '',
   });
 
-  const [signup, { loading }] = useMutation<Pick<Mutation, 'signup'>, MutationSignupArgs>(UserQueries.signup);
+  const [signup, { loading }] = useMutation<Pick<Mutation, 'userSignup'>, MutationUserSignupArgs>(UserQueries.userSignup);
 
   const onSignupPress = async () => {
     try {
@@ -44,7 +44,7 @@ export default function SignupPage() {
       });
 
       if (data.data) {
-        await User.login(data.data?.signup);
+        await User.login(data.data?.userSignup);
       }
     } catch (e) {
       console.error(e);

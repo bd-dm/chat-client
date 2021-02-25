@@ -14,7 +14,7 @@ export default function ProfilePage() {
     allowedStates: [IUserAuthState.LOGGED_IN],
   });
 
-  const { loading, error, data } = useQuery<Pick<Query, 'getCurrentUser'>>(UserQueries.getCurrentUser);
+  const { loading, error, data } = useQuery<Pick<Query, 'userGetCurrent'>>(UserQueries.userGetCurrent);
 
   if (error) {
     console.error(error);
@@ -27,7 +27,7 @@ export default function ProfilePage() {
 
   return (
     <div>
-      E-Mail: {data?.getCurrentUser?.email}
+      E-Mail: {data?.userGetCurrent?.email}
     </div>
   );
 }
