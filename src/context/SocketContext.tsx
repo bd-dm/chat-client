@@ -4,6 +4,11 @@ import { io } from 'socket.io-client';
 
 import { ISocketContextProviderProps, ISocketContextSocket, ISocketContextValue } from '@definitions/context';
 
+import useAuth from '@lib/hooks/useAuth';
+
+import { userStore } from '@models/User';
+
+import { useReactiveVar } from '@apollo/client';
 import config from '@config';
 
 export const socketContextDefaultValue: ISocketContextValue = {
@@ -15,6 +20,17 @@ export const SocketContext = React.createContext<ISocketContextValue>(socketCont
 
 export const SocketContextProvider = (props: ISocketContextProviderProps) => {
   const [socket, setSocket] = useState<ISocketContextSocket>(null);
+  const userToken = useReactiveVar(userStore.token);
+  const isAuthorized = useAuth();
+
+  useEffect(() => {
+    if (socket) {
+      socket?.disconnect();
+      setSocket(null);
+
+      initSocket();
+    }
+  }, [isAuthorized]);
 
   useEffect(() => {
     if (socket) {
@@ -40,6 +56,7 @@ export const SocketContextProvider = (props: ISocketContextProviderProps) => {
 
     const newSocket = io(config.apiSocketHost, {
       path: config.apiSocketPath,
+      auth: { token: userToken },
     });
 
     setSocket(newSocket);
