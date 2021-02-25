@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import ApiClient from '@lib/classes/ApiClient';
 
 import { ApolloProvider } from '@apollo/client';
+import { SocketContextProvider } from '@context/SocketContext';
 import { persistStore } from '@models';
 
 function App({ Component, pageProps }: AppProps) {
@@ -24,7 +25,9 @@ function App({ Component, pageProps }: AppProps) {
 
   return (
     <ApolloProvider client={ApiClient}>
-      <Component {...pageProps} />
+      <SocketContextProvider>
+        <Component {...pageProps} />
+      </SocketContextProvider>
     </ApolloProvider>
   );
 }

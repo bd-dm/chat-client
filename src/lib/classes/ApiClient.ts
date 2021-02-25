@@ -13,7 +13,7 @@ const link = from([
   errorLink,
   authLink,
   new HttpLink({
-    uri: config.apiHost,
+    uri: config.apiGraphqlHost,
   }),
 ]);
 

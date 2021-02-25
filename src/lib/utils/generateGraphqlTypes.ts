@@ -8,7 +8,7 @@ import { generate } from '@graphql-codegen/cli';
 (async () => {
   await generate(
     {
-      schema: config.apiHost,
+      schema: config.apiGraphqlHost,
       documents: '',
       generates: {
         [`${process.cwd()}/src/definitions/graphql.ts`]: {

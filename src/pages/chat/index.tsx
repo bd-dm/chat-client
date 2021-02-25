@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
-import UserQueries from '@api/UserQueries';
+import UserQueries from '@api/graphql/UserQueries';
 
 import { ChatRoom } from '@components/ui/ChatRoom';
 import { ChatRoomCard } from '@components/ui/ChatRoomCard';
@@ -12,6 +12,7 @@ import { IChatPageQuery } from '@definitions/pages';
 import { IUserAuthState } from '@definitions/user';
 
 import useAuth from '@lib/hooks/useAuth';
+import useSocket from '@lib/hooks/useSocket';
 import { styleImport } from '@lib/utils/style';
 
 import stylesFile from './index.module.scss';
@@ -24,7 +25,13 @@ export default function ChatPage() {
   useAuth({
     allowedStates: [IUserAuthState.LOGGED_IN],
   });
+
+  const socket = useSocket();
   const router = useRouter();
+
+  useEffect(() => {
+    console.log('SOCKET!', socket);
+  }, [socket]);
 
   const { id: chatId } = router.query as IChatPageQuery;
 

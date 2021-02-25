@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import UserQueries from '@api/UserQueries';
+import UserQueries from '@api/graphql/UserQueries';
 
 import Button from '@components/ui/Button';
 import FormRow from '@components/ui/FormRow';

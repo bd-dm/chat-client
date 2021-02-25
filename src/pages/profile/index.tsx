@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserQueries from '@api/UserQueries';
+import UserQueries from '@api/graphql/UserQueries';
 
 import { Query } from '@definitions/graphql';
 import { IUserAuthState } from '@definitions/user';
