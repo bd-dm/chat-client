@@ -1,13 +1,15 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
+
+import { SocketContext } from '@components/context/SocketContext';
 
 import { ISocketContextSocket } from '@definitions/context';
-
-import { SocketContext } from '@context/SocketContext';
 
 const useSocket = (): ISocketContextSocket => {
   const socketContext = useContext(SocketContext);
 
-  socketContext.initSocket();
+  useEffect(() => {
+    socketContext.initSocket();
+  }, []);
 
   const { socket } = socketContext;
 
