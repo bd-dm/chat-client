@@ -1,15 +1,15 @@
 import React, { FormEvent, KeyboardEvent } from 'react';
 
-import { ITextInputProps } from '@definitions/ui';
+import { ITextAreaProps } from '@definitions/ui';
 
-export default function TextInput(props: ITextInputProps) {
-  const onChange = (e: FormEvent<HTMLInputElement>) => {
+export default function TextArea(props: ITextAreaProps) {
+  const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
     if (props.onValueChange) {
       props.onValueChange(e.currentTarget.value);
     }
   };
 
-  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
+  const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === 'Enter' && props.onEnterPress) {
       props.onEnterPress();
     }
@@ -17,13 +17,12 @@ export default function TextInput(props: ITextInputProps) {
 
   return (
     <>
-      <input
+      <textarea
         className={props.className}
-        type="text"
         value={props.value}
         onChange={onChange}
         onKeyDown={handleKeyDown}
-        {...props.htmlTextInputProps}
+        {...props.htmlTextAreaProps}
       />
     </>
   );

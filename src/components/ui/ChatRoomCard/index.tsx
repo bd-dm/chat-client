@@ -12,7 +12,7 @@ const styles = styleImport(stylesFile);
 
 export function ChatRoomCard(props: IChatRoomCardProps) {
   return (
-    <div className={styles('card')} onClick={props.onPress}>
+    <div className={styles('card', props.isActive ? 'card--active' : '')} onClick={props.onPress}>
       <div className={styles('avatar-wrapper')}>
         <Image
           alt="Chat room"

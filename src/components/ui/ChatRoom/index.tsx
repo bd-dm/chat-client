@@ -5,9 +5,8 @@ import React, {
 
 import UserQueries from '@api/graphql/UserQueries';
 
-import Button from '@components/ui/Button';
 import { ChatMessage } from '@components/ui/ChatMessage';
-import TextInput from '@components/ui/TextInput';
+import TextAreaChatMessage from '@components/ui/TextAreaChatMessage';
 
 import {
   Mutation,
@@ -25,7 +24,6 @@ import { useMutation, useQuery } from '@apollo/client';
 const styles = styleImport(stylesFile);
 
 export function ChatRoom(props: IChatMessagesProps) {
-  const [newMessage, setNewMessage] = useState('');
   const [messagesRef, setMessagesRef] = useState<HTMLDivElement | null>(null);
 
   const { loading: isLoading, error, data } = useQuery<Pick<Query, 'chatMessageList'>>(
@@ -66,13 +64,12 @@ export function ChatRoom(props: IChatMessagesProps) {
     return <p>Загрузка...</p>;
   }
 
-  const sendMessage = async () => {
-    setNewMessage('');
+  const sendMessage = async (text: string) => {
     await chatMessageSend({
       variables: {
         data: {
           chatRoomId: props.chatRoomId,
-          text: newMessage,
+          text,
         },
       },
     });
@@ -97,17 +94,10 @@ export function ChatRoom(props: IChatMessagesProps) {
           ))}
       </div>
       <div className={styles('input-container')}>
-        <TextInput
-          value={newMessage}
-          onEnterPress={sendMessage}
-          onValueChange={setNewMessage}
-        />
-        <Button
+        <TextAreaChatMessage
           isLoading={isSendLoading}
-          onPress={sendMessage}
-        >
-          Отправить
-        </Button>
+          onSend={sendMessage}
+        />
       </div>
     </div>
   );

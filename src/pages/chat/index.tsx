@@ -89,6 +89,7 @@ export default function ChatPage() {
       <div className={styles('rooms')}>
         {data?.chatList.map((room) => (
           <ChatRoomCard
+            isActive={room.id === chatId}
             key={room.id}
             name={room.name}
             onPress={() => openChatRoom(room.id)}

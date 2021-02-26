@@ -8,11 +8,12 @@
   flex: 1;
   height: calc(100% - 100px);
   overflow-y: scroll;
+  padding-left: 15px;
 }
 
 .input-container {
   background-color: #ddd;
-  height: 100px;
+  height: 60px;
 }
 
 .empty {

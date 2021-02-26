@@ -6,7 +6,8 @@
   padding: 10px;
 }
 
-.card:hover {
+.card:hover,
+.card--active {
   background-color: #efefef;
 }
 
