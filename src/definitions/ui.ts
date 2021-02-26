@@ -2,6 +2,7 @@ import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
 export interface ITextInputProps extends InputHTMLAttributes<HTMLInputElement>{
   onValueChange?: (text: string) => void;
+  onEnterPress?: () => void;
 }
 
 export interface IFormRowProps {

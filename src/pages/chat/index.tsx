@@ -7,8 +7,10 @@ import UserQueries from '@api/graphql/UserQueries';
 import { ChatRoom } from '@components/ui/ChatRoom';
 import { ChatRoomCard } from '@components/ui/ChatRoomCard';
 
+import { IChatMessage } from '@definitions/entities/ChatMessage';
 import { Query } from '@definitions/graphql';
 import { IChatPageQuery } from '@definitions/pages';
+import { ISocketEvents } from '@definitions/socket';
 import { IUserAuthState } from '@definitions/user';
 
 import useAuth from '@lib/hooks/useAuth';
@@ -31,9 +33,12 @@ export default function ChatPage() {
 
   useEffect(() => {
     if (socket) {
-      socket.on('event', (a1: string, a2: string) => {
-        console.log('event', a1, a2);
-      });
+      socket.on(
+        ISocketEvents.CHAT_NEW_MESSAGE,
+        (data: IChatMessage) => {
+          console.log('New chat message', data.text);
+        },
+      );
     }
   }, [socket]);
 

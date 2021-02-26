@@ -52,6 +52,7 @@ export function ChatRoom(props: IChatMessagesProps) {
   }
 
   const sendMessage = async () => {
+    setNewMessage('');
     await chatMessageSend({
       variables: {
         data: {
@@ -83,9 +84,13 @@ export function ChatRoom(props: IChatMessagesProps) {
       <div className={styles('input-container')}>
         <TextInput
           value={newMessage}
+          onEnterPress={sendMessage}
           onValueChange={setNewMessage}
         />
-        <Button isLoading={isSendLoading} onPress={sendMessage}>
+        <Button
+          isLoading={isSendLoading}
+          onPress={sendMessage}
+        >
           Отправить
         </Button>
       </div>

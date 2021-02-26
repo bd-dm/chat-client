@@ -27,6 +27,8 @@ export default function ProfilePage() {
 
   return (
     <div>
+      id: {data?.userGetCurrent?.id}
+      <br />
       E-Mail: {data?.userGetCurrent?.email}
     </div>
   );
