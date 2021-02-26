@@ -14,7 +14,9 @@ import { IUserAuthState } from '@definitions/user';
 
 import apolloClient from '@lib/classes/ApiClient';
 import useAuth from '@lib/hooks/useAuth';
+import useNotifications from '@lib/hooks/useNotifications';
 import useSocket from '@lib/hooks/useSocket';
+import useUser from '@lib/hooks/useUser';
 import { styleImport } from '@lib/utils/style';
 
 import ChatMessageModel from '@models/ChatMessageModel';
@@ -30,9 +32,11 @@ export default function ChatPage() {
   useAuth({
     allowedStates: [IUserAuthState.LOGGED_IN],
   });
+  const notification = useNotifications();
 
   const socket = useSocket();
   const router = useRouter();
+  const { user } = useUser();
 
   const { id: chatId } = router.query as IChatPageQuery;
   const { loading, error, data } = useQuery<Pick<Query, 'chatList'>>(UserQueries.chatList.query);
@@ -40,6 +44,16 @@ export default function ChatPage() {
   const chatOnNewMessage = async (message: ChatMessage) => {
     const chatMessageModel = new ChatMessageModel(apolloClient);
     await chatMessageModel.addLocalMessage(message.chatRoom.id, message);
+
+    if (
+      user?.id !== message.author.id
+      && message.chatRoom.id !== chatId
+    ) {
+      notification({
+        text: message.text,
+        title: message.author.email,
+      });
+    }
   };
 
   const chatOnNewRoom = async (room: ChatRoomType) => {
@@ -69,7 +83,7 @@ export default function ChatPage() {
         );
       };
     }
-  }, [socket]);
+  }, [socket, user, chatId]);
 
   if (error) {
     console.error(error);

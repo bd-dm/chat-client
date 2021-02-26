@@ -1,0 +1,72 @@
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateX(200px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+$notification-width: 300px;
+
+.notification {
+  align-items: center;
+  animation: fadein 1s;
+  background-color: #fff;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  max-width: $notification-width;
+  min-width: $notification-width;
+  overflow: hidden;
+  padding: 10px 20px;
+
+  transition: all 1s;
+  width: $notification-width;
+}
+
+.notification--showed {
+  margin-top: 0 !important;
+}
+
+.body {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.title {
+  color: #000;
+  flex: 1;
+  font-weight: 600;
+  margin-bottom: 5px;
+  overflow-wrap: anywhere;
+  white-space: break-spaces;
+}
+
+.text {
+  color: #000;
+  overflow-wrap: anywhere;
+  white-space: break-spaces;
+}
+
+.close-button,
+.close-button:link,
+.close-button:active,
+.close-button:visited {
+  border-bottom-left-radius: 100px;
+  border-top-left-radius: 100px;
+  color: #000;
+  font-size: 20px;
+  margin: -10px -20px;
+  margin-left: 0;
+  padding: 10px 20px;
+  text-decoration: none;
+}
+
+.close-button:hover {
+  background-color: #fafafa;
+}

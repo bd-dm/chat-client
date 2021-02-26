@@ -1,5 +1,7 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
+import { INotification } from '@definitions/context';
+
 export interface ITextInputProps{
   onValueChange?: (text: string) => void;
   onEnterPress?: () => void;
@@ -53,4 +55,8 @@ export interface IHeaderMenuItemProps {
   route?: string;
   children: string;
   onPress?: () => void;
+}
+
+export interface INotificationProps {
+  notification: INotification;
 }
