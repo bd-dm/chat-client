@@ -1,4 +1,7 @@
-import React, { useState } from 'react';
+import React, {
+  useCallback, useEffect,
+  useState,
+} from 'react';
 
 import UserQueries from '@api/graphql/UserQueries';
 
@@ -23,6 +26,7 @@ const styles = styleImport(stylesFile);
 
 export function ChatRoom(props: IChatMessagesProps) {
   const [newMessage, setNewMessage] = useState('');
+  const [messagesRef, setMessagesRef] = useState<HTMLDivElement | null>(null);
 
   const { loading: isLoading, error, data } = useQuery<Pick<Query, 'chatMessageList'>>(
     UserQueries.chatMessageList.query,
@@ -32,6 +36,21 @@ export function ChatRoom(props: IChatMessagesProps) {
       }),
     },
   );
+
+  const onMessagesRef = useCallback((node) => {
+    if (node !== null) {
+      // eslint-disable-next-line no-param-reassign
+      node.scrollTop = node.scrollHeight;
+    }
+
+    setMessagesRef(node);
+  }, []);
+
+  useEffect(() => {
+    if (messagesRef) {
+      messagesRef.scrollTop = messagesRef.scrollHeight;
+    }
+  }, [data?.chatMessageList.length]);
 
   const [
     chatMessageSend,
@@ -61,7 +80,7 @@ export function ChatRoom(props: IChatMessagesProps) {
 
   return (
     <div className={styles('container')}>
-      <div className={styles('messages')}>
+      <div className={styles('messages')} ref={onMessagesRef}>
         {!data?.chatMessageList.length
           ? (
             <div className={styles('empty')}>

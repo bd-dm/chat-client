@@ -34,15 +34,6 @@ export const SocketContextProvider = (props: ISocketContextProviderProps) => {
 
   useEffect(() => {
     if (socket) {
-      socket.on('connect', () => {
-        console.log(`socket connect: ${socket.id}`);
-      });
-
-      socket.on('disconnect', () => {
-        console.log(`socket disconnect: ${socket.id}`);
-        setSocket(null);
-      });
-
       socket.on('error', () => {
         console.error(`socket error: ${socket.id}`);
       });

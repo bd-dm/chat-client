@@ -22,6 +22,9 @@ class ChatMessageModel {
     };
 
     const prevData = apolloClient.readQuery(queryParams);
+    if (!prevData?.chatMessageList) {
+      return;
+    }
 
     this.apolloClient.writeQuery({
       ...queryParams,

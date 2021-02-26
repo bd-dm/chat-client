@@ -23,6 +23,4 @@ const apolloClient = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
-console.log('new apollo client');
-
 export default apolloClient;

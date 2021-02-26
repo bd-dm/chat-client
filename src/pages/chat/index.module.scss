@@ -2,6 +2,7 @@
   display: flex;
   flex: 1;
   flex-direction: row;
+  height: calc(100vh - 58px);
 }
 
 .rooms {
@@ -13,4 +14,5 @@
   background-color: #efefef;
   display: flex;
   flex: 5;
+  height: 100%;
 }
