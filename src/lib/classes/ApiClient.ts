@@ -17,8 +17,12 @@ const link = from([
   }),
 ]);
 
-export default new ApolloClient({
+const apolloClient = new ApolloClient({
   ssrMode: config.isServer,
   link,
   cache: new InMemoryCache(),
 });
+
+console.log('new apollo client');
+
+export default apolloClient;

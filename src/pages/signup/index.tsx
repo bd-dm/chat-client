@@ -30,17 +30,15 @@ export default function SignupPage() {
     password: '',
   });
 
-  const [signup, { loading }] = useMutation<Pick<Mutation, 'userSignup'>, MutationUserSignupArgs>(UserQueries.userSignup);
+  const [signup, { loading }] = useMutation<Pick<Mutation, 'userSignup'>, MutationUserSignupArgs>(UserQueries.userSignup.query);
 
   const onSignupPress = async () => {
     try {
       const data = await signup({
-        variables: {
-          data: {
-            email: formState.email,
-            password: formState.password,
-          },
-        },
+        variables: UserQueries.userSignup.variables({
+          email: formState.email,
+          password: formState.password,
+        }),
       });
 
       if (data.data) {

@@ -14,7 +14,7 @@ export default function ProfilePage() {
     allowedStates: [IUserAuthState.LOGGED_IN],
   });
 
-  const { loading, error, data } = useQuery<Pick<Query, 'userGetCurrent'>>(UserQueries.userGetCurrent);
+  const { loading, error, data } = useQuery<Pick<Query, 'userGetCurrent'>>(UserQueries.userGetCurrent.query);
 
   if (error) {
     console.error(error);

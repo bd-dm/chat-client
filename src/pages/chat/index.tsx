@@ -13,9 +13,12 @@ import { IChatPageQuery } from '@definitions/pages';
 import { ISocketEvents } from '@definitions/socket';
 import { IUserAuthState } from '@definitions/user';
 
+import apolloClient from '@lib/classes/ApiClient';
 import useAuth from '@lib/hooks/useAuth';
 import useSocket from '@lib/hooks/useSocket';
 import { styleImport } from '@lib/utils/style';
+
+import ChatMessageModel from '@models/ChatMessageModel';
 
 import stylesFile from './index.module.scss';
 
@@ -31,20 +34,20 @@ export default function ChatPage() {
   const socket = useSocket();
   const router = useRouter();
 
+  const { id: chatId } = router.query as IChatPageQuery;
+  const { loading, error, data } = useQuery<Pick<Query, 'chatList'>>(UserQueries.chatList.query);
+
   useEffect(() => {
     if (socket) {
       socket.on(
         ISocketEvents.CHAT_NEW_MESSAGE,
-        (data: IChatMessage) => {
-          console.log('New chat message', data.text);
+        async (message: IChatMessage) => {
+          const chatMessageModel = new ChatMessageModel(apolloClient);
+          await chatMessageModel.addLocalMessage(message.chatRoom.id, message);
         },
       );
     }
   }, [socket]);
-
-  const { id: chatId } = router.query as IChatPageQuery;
-
-  const { loading, error, data } = useQuery<Pick<Query, 'chatList'>>(UserQueries.chatList);
 
   if (error) {
     console.error(error);

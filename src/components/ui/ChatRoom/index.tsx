@@ -25,22 +25,18 @@ export function ChatRoom(props: IChatMessagesProps) {
   const [newMessage, setNewMessage] = useState('');
 
   const { loading: isLoading, error, data } = useQuery<Pick<Query, 'chatMessageList'>>(
-    UserQueries.chatMessageList,
+    UserQueries.chatMessageList.query,
     {
-      variables: {
-        data: {
-          chatRoomId: props.chatRoomId,
-        },
-      },
+      variables: UserQueries.chatMessageList.variables({
+        chatRoomId: props.chatRoomId,
+      }),
     },
   );
 
-  const [chatMessageSend, { loading: isSendLoading }] = useMutation<
-    Pick<Mutation, 'chatMessageSend'>,
-    MutationChatMessageSendArgs
-    >(
-      UserQueries.chatMessageSend,
-    );
+  const [
+    chatMessageSend,
+    { loading: isSendLoading },
+  ] = useMutation<Pick<Mutation, 'chatMessageSend'>, MutationChatMessageSendArgs>(UserQueries.chatMessageSend.query);
 
   if (error) {
     console.error(error);

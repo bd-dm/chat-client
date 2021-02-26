@@ -32,7 +32,7 @@ export default function LoginPage() {
     password: '',
   });
 
-  const [login, { loading, data }] = useLazyQuery<Pick<Query, 'userLogin'>, QueryUserLoginArgs>(UserQueries.userLogin);
+  const [login, { loading, data }] = useLazyQuery<Pick<Query, 'userLogin'>, QueryUserLoginArgs>(UserQueries.userLogin.query);
 
   useEffect(() => {
     if (data?.userLogin) {
@@ -42,12 +42,10 @@ export default function LoginPage() {
 
   const onLoginPress = async () => {
     login({
-      variables: {
-        data: {
-          email: formState.email,
-          password: formState.password,
-        },
-      },
+      variables: UserQueries.userLogin.variables({
+        email: formState.email,
+        password: formState.password,
+      }),
     });
   };
 

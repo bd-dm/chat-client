@@ -1,51 +1,76 @@
+import { ChatMessageListInput, UserLoginInput, UserSignupInput } from '@definitions/graphql';
+
 import { gql } from '@apollo/client';
 
 export default {
-  userSignup: gql`
-    mutation UserSignup($data: UserSignupInput!) {
-      userSignup(data: $data)
-    }
-  `,
-  userLogin: gql`
-    query UserLogin($data: UserLoginInput!) {
-      userLogin(data: $data)
-    }
-  `,
-  userGetCurrent: gql`
-    query UserGetCurrent {
-      userGetCurrent {
-        id
-        email
+  userSignup: {
+    query: gql`
+      mutation UserSignup($data: UserSignupInput!) {
+        userSignup(data: $data)
       }
-    }
-  `,
-  chatList: gql`
-    query chatList {
-      chatList {
-        id
-        name
+    `,
+    variables: (data: UserSignupInput) => ({ data }),
+  },
+  userLogin: {
+    query: gql`
+      query UserLogin($data: UserLoginInput!) {
+        userLogin(data: $data)
       }
-    }
-  `,
-  chatMessageList: gql`
-    query ChatMessageList($data: ChatMessageListInput!) {
-      chatMessageList(data: $data) {
-        id
-        text
-        createdAt
-        author {
+    `,
+    variables: (data: UserLoginInput) => ({ data }),
+  },
+  userGetCurrent: {
+    query: gql`
+      query UserGetCurrent {
+        userGetCurrent {
           id
           email
         }
       }
-    }
-  `,
-  chatMessageSend: gql`
-    mutation ChatMessageSend($data: ChatMessageSendInput!) {
-      chatMessageSend(data: $data) {
-        id
-        text
+    `,
+    variables: () => ({}),
+  },
+  chatList: {
+    query: gql`
+      query chatList {
+        chatList {
+          id
+          name
+        }
       }
-    }
-  `,
+    `,
+    variables: () => ({}),
+  },
+  chatMessageList: {
+    query: gql`
+      query ChatMessageList($data: ChatMessageListInput!) {
+        chatMessageList(data: $data) {
+          id
+          text
+          createdAt
+          author {
+            id
+            email
+          }
+        }
+      }
+    `,
+    variables: (data: ChatMessageListInput) => ({ data }),
+  },
+  chatMessageSend: {
+    query: gql`
+      mutation ChatMessageSend($data: ChatMessageSendInput!) {
+        chatMessageSend(data: $data) {
+          id
+          text
+          createdAt
+          author {
+            id
+            email
+          }
+        }
+      }
+    `,
+    variables: () => ({}),
+  },
 };
