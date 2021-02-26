@@ -1,6 +1,6 @@
 import UserQueries from '@api/graphql/UserQueries';
 
-import { IChatMessage } from '@definitions/entities/ChatMessage';
+import { ChatMessage, Query } from '@definitions/graphql';
 
 import apolloClient from '@lib/classes/ApiClient';
 
@@ -13,7 +13,7 @@ class ChatMessageModel {
     this.apolloClient = _apolloClient;
   }
 
-  async addLocalMessage(chatRoomId: string, data: IChatMessage) {
+  async addLocalMessage(chatRoomId: string, data: ChatMessage) {
     const queryParams = {
       query: UserQueries.chatMessageList.query,
       variables: UserQueries.chatMessageList.variables({
@@ -21,12 +21,12 @@ class ChatMessageModel {
       }),
     };
 
-    const prevData = apolloClient.readQuery(queryParams);
+    const prevData = apolloClient.readQuery<Pick<Query, 'chatMessageList'>>(queryParams);
     if (!prevData?.chatMessageList) {
       return;
     }
 
-    this.apolloClient.writeQuery({
+    this.apolloClient.writeQuery<Pick<Query, 'chatMessageList'>>({
       ...queryParams,
       data: {
         chatMessageList: [...prevData.chatMessageList, data],

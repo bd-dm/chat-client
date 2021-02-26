@@ -7,8 +7,7 @@ import UserQueries from '@api/graphql/UserQueries';
 import { ChatRoom } from '@components/ui/ChatRoom';
 import { ChatRoomCard } from '@components/ui/ChatRoomCard';
 
-import { IChatMessage } from '@definitions/entities/ChatMessage';
-import { Query } from '@definitions/graphql';
+import { ChatMessage, ChatRoom as ChatRoomType, Query } from '@definitions/graphql';
 import { IChatPageQuery } from '@definitions/pages';
 import { ISocketEvents } from '@definitions/socket';
 import { IUserAuthState } from '@definitions/user';
@@ -19,6 +18,7 @@ import useSocket from '@lib/hooks/useSocket';
 import { styleImport } from '@lib/utils/style';
 
 import ChatMessageModel from '@models/ChatMessageModel';
+import ChatRoomModel from '@models/ChatRoomModel';
 
 import stylesFile from './index.module.scss';
 
@@ -41,9 +41,16 @@ export default function ChatPage() {
     if (socket) {
       socket.on(
         ISocketEvents.CHAT_NEW_MESSAGE,
-        async (message: IChatMessage) => {
+        async (message: ChatMessage) => {
           const chatMessageModel = new ChatMessageModel(apolloClient);
           await chatMessageModel.addLocalMessage(message.chatRoom.id, message);
+        },
+      );
+      socket.on(
+        ISocketEvents.CHAT_NEW_ROOM,
+        async (room: ChatRoomType) => {
+          const chatRoomModel = new ChatRoomModel(apolloClient);
+          await chatRoomModel.addLocalRoom(room);
         },
       );
     }

@@ -2,6 +2,10 @@ import { ChatMessageListInput, UserLoginInput, UserSignupInput } from '@definiti
 
 import { gql } from '@apollo/client';
 
+export interface IGQLVariables<Input> {
+  data: Input;
+}
+
 export default {
   userSignup: {
     query: gql`
@@ -9,7 +13,7 @@ export default {
         userSignup(data: $data)
       }
     `,
-    variables: (data: UserSignupInput) => ({ data }),
+    variables: (data: UserSignupInput): IGQLVariables<UserSignupInput> => ({ data }),
   },
   userLogin: {
     query: gql`
@@ -17,7 +21,7 @@ export default {
         userLogin(data: $data)
       }
     `,
-    variables: (data: UserLoginInput) => ({ data }),
+    variables: (data: UserLoginInput): IGQLVariables<UserLoginInput> => ({ data }),
   },
   userGetCurrent: {
     query: gql`
@@ -55,7 +59,7 @@ export default {
         }
       }
     `,
-    variables: (data: ChatMessageListInput) => ({ data }),
+    variables: (data: ChatMessageListInput): IGQLVariables<ChatMessageListInput> => ({ data }),
   },
   chatMessageSend: {
     query: gql`
