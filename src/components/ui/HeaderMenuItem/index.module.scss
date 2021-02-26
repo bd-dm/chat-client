@@ -1,0 +1,15 @@
+.menu-item {
+  cursor: pointer;
+  padding: 20px;
+}
+
+.menu-item a:active,
+.menu-item a:link,
+.menu-item a:visited {
+  color: #000;
+  text-decoration: none;
+}
+
+.menu-item:hover {
+  background-color: #fafafa;
+}

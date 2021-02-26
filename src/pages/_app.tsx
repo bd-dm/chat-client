@@ -1,6 +1,10 @@
+import '@assets/styles/index.scss';
+
 import React, { useEffect, useState } from 'react';
 
 import { AppProps } from 'next/app';
+
+import PageLayout from '@components/layout/PageLayout';
 
 import ApiClient from '@lib/classes/ApiClient';
 
@@ -26,7 +30,9 @@ function App({ Component, pageProps }: AppProps) {
   return (
     <ApolloProvider client={ApiClient}>
       <SocketContextProvider>
-        <Component {...pageProps} />
+        <PageLayout>
+          <Component {...pageProps} />
+        </PageLayout>
       </SocketContextProvider>
     </ApolloProvider>
   );

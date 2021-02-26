@@ -29,3 +29,9 @@ export interface IChatMessageProps {
   text: string;
   date: Date;
 }
+
+export interface IHeaderMenuItemProps {
+  route?: string;
+  children: string;
+  onPress?: () => void;
+}

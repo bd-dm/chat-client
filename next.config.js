@@ -7,11 +7,6 @@ module.exports = {
         config.resolve.alias = {
             ...config.resolve.alias,
             '@': path.resolve('./src'),
-            '@api': path.resolve('./src/api'),
-            '@components': path.resolve('./src/components'),
-            '@pages': path.resolve('./src/pages'),
-            '@store': path.resolve('./src/models'),
-            '@assets': path.resolve('./src/assets'),
         };
 
         if (dev && !isServer) {
