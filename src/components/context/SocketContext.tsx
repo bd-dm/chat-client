@@ -34,6 +34,9 @@ export const SocketContextProvider = (props: ISocketContextProviderProps) => {
 
   useEffect(() => {
     if (socket) {
+      socket.on('connect', () => {
+        console.log('socket connect');
+      });
       socket.on('error', () => {
         console.error(`socket error: ${socket.id}`);
       });
@@ -41,10 +44,12 @@ export const SocketContextProvider = (props: ISocketContextProviderProps) => {
   }, [socket]);
 
   const initSocket = () => {
+    console.log('new socket?');
     if (socket?.connected || !!socket) {
       return;
     }
 
+    console.log('new socket');
     const newSocket = io(config.apiSocketHost, {
       path: config.apiSocketPath,
       auth: { token: userToken },

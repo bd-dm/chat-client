@@ -37,22 +37,37 @@ export default function ChatPage() {
   const { id: chatId } = router.query as IChatPageQuery;
   const { loading, error, data } = useQuery<Pick<Query, 'chatList'>>(UserQueries.chatList.query);
 
+  const chatOnNewMessage = async (message: ChatMessage) => {
+    const chatMessageModel = new ChatMessageModel(apolloClient);
+    await chatMessageModel.addLocalMessage(message.chatRoom.id, message);
+  };
+
+  const chatOnNewRoom = async (room: ChatRoomType) => {
+    const chatRoomModel = new ChatRoomModel(apolloClient);
+    await chatRoomModel.addLocalRoom(room);
+  };
+
   useEffect(() => {
     if (socket) {
       socket.on(
         ISocketEvents.CHAT_NEW_MESSAGE,
-        async (message: ChatMessage) => {
-          const chatMessageModel = new ChatMessageModel(apolloClient);
-          await chatMessageModel.addLocalMessage(message.chatRoom.id, message);
-        },
+        chatOnNewMessage,
       );
       socket.on(
         ISocketEvents.CHAT_NEW_ROOM,
-        async (room: ChatRoomType) => {
-          const chatRoomModel = new ChatRoomModel(apolloClient);
-          await chatRoomModel.addLocalRoom(room);
-        },
+        chatOnNewRoom,
       );
+
+      return () => {
+        socket.off(
+          ISocketEvents.CHAT_NEW_MESSAGE,
+          chatOnNewMessage,
+        );
+        socket.off(
+          ISocketEvents.CHAT_NEW_ROOM,
+          chatOnNewRoom,
+        );
+      };
     }
   }, [socket]);
 
