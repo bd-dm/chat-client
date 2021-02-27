@@ -13,11 +13,18 @@ export default function Button(props: IButtonProps) {
     isLoading = false,
     children,
     onPress,
+    isFullWidth = false,
   } = props;
+
+  const styleList = ['button'];
+
+  if (isFullWidth) {
+    styleList.push('button--full-width');
+  }
 
   return (
     <>
-      <button className={styles('button')} onClick={onPress}>
+      <button className={styles(...styleList)} onClick={onPress}>
         {isLoading ? 'Загрузка...' : children}
       </button>
     </>

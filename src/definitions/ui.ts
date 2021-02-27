@@ -33,6 +33,7 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   children: ReactNode;
   isLoading?: boolean;
   onPress?: () => void;
+  isFullWidth?: boolean;
 }
 
 export interface IChatRoomCardProps {

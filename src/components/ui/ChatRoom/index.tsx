@@ -68,6 +68,12 @@ export function ChatRoom(props: IChatMessagesProps) {
     setMessagesRef(node);
   }, []);
 
+  useEffect(() => {
+    if (messagesRef) {
+      messagesRef.scrollTop = messagesRef.scrollHeight;
+    }
+  }, [messages.length]);
+
   const loadMore = async () => {
     setIsMoreLoading(true);
     const items: any = await fetchMore({
@@ -134,28 +140,30 @@ export function ChatRoom(props: IChatMessagesProps) {
 
   return (
     <div className={styles('container')}>
-      <div className={styles('messages')} ref={onMessagesRef}>
+      <div className={styles('messages-scroll')} ref={onMessagesRef}>
         {pageMeta?.hasMore && (
           <div className={styles('load-more-button')}>
-            <Button isLoading={isMoreLoading} onPress={loadMore}>
+            <Button isLoading={isMoreLoading} isFullWidth onPress={loadMore}>
               Load more
             </Button>
           </div>
         )}
-        {!messages.length
-          ? (
-            <div className={styles('empty')}>
-              No messages yet ☹️
-            </div>
-          )
-          : messages.map((chatMessage) => (
-            <ChatMessage
-              date={new Date(chatMessage.createdAt)}
-              key={chatMessage.id}
-              name={chatMessage.author.email}
-              text={chatMessage.text}
-            />
-          ))}
+        <div className={styles('messages')}>
+          {!messages.length
+            ? (
+              <div className={styles('empty')}>
+                No messages yet ☹️
+              </div>
+            )
+            : messages.map((chatMessage) => (
+              <ChatMessage
+                date={new Date(chatMessage.createdAt)}
+                key={chatMessage.id}
+                name={chatMessage.author.email}
+                text={chatMessage.text}
+              />
+            ))}
+        </div>
       </div>
       <div className={styles('input-container')}>
         <TextAreaChatMessage

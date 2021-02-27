@@ -2,6 +2,8 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import moment from 'moment';
+
 import { IChatMessageProps } from '@definitions/ui';
 
 import { styleImport } from '@lib/utils/style';
@@ -21,8 +23,13 @@ export function ChatMessage(props: IChatMessageProps) {
         />
       </div>
       <div className={styles('body')}>
-        <div className={styles('name')}>
-          {props.name}
+        <div className={styles('header')}>
+          <div className={styles('name')}>
+            {props.name}
+          </div>
+          <div className={styles('date')}>
+            {moment(props.date).fromNow()}
+          </div>
         </div>
         <div className={styles('text')}>
           {props.text}
