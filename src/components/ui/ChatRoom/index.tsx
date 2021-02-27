@@ -1,10 +1,11 @@
 import React, {
-  useCallback, useEffect,
+  useCallback, useEffect, useMemo,
   useState,
 } from 'react';
 
 import UserQueries from '@api/graphql/UserQueries';
 
+import Button from '@components/ui/Button';
 import { ChatMessage } from '@components/ui/ChatMessage';
 import TextAreaChatMessage from '@components/ui/TextAreaChatMessage';
 
@@ -15,7 +16,10 @@ import {
 } from '@definitions/graphql';
 import { IChatMessagesProps } from '@definitions/ui';
 
+import apolloClient from '@lib/classes/ApiClient';
 import { styleImport } from '@lib/utils/style';
+
+import ChatMessageModel from '@models/ChatMessageModel';
 
 import stylesFile from './index.module.scss';
 
@@ -25,14 +29,34 @@ const styles = styleImport(stylesFile);
 
 export function ChatRoom(props: IChatMessagesProps) {
   const [messagesRef, setMessagesRef] = useState<HTMLDivElement | null>(null);
+  const [isMoreLoading, setIsMoreLoading] = useState(false);
 
-  const { loading: isLoading, error, data } = useQuery<Pick<Query, 'chatMessageList'>>(
+  const {
+    loading: isLoading,
+    error,
+    data,
+    fetchMore,
+  } = useQuery<Pick<Query, 'chatMessageList'>>(
     UserQueries.chatMessageList.query,
     {
       variables: UserQueries.chatMessageList.variables({
         chatRoomId: props.chatRoomId,
       }),
     },
+  );
+
+  const [
+    chatMessageSend,
+    { loading: isSendLoading },
+  ] = useMutation<Pick<Mutation, 'chatMessageSend'>, MutationChatMessageSendArgs>(UserQueries.chatMessageSend.query);
+
+  const messages = useMemo(
+    () => [...(data?.chatMessageList.data || [])].reverse(),
+    [data?.chatMessageList.data],
+  );
+  const pageMeta = useMemo(
+    () => data?.chatMessageList.pageMeta,
+    [data?.chatMessageList.pageMeta],
   );
 
   const onMessagesRef = useCallback((node) => {
@@ -44,16 +68,45 @@ export function ChatRoom(props: IChatMessagesProps) {
     setMessagesRef(node);
   }, []);
 
-  useEffect(() => {
+  const loadMore = async () => {
+    setIsMoreLoading(true);
+    const items: any = await fetchMore({
+      variables: UserQueries.chatMessageList.variables({
+        chatRoomId: props.chatRoomId,
+      }, {
+        offset: messages.length,
+        limit: 30,
+      }),
+    });
+
+    if (items?.data?.chatMessageList?.data) {
+      const chatMessageModel = new ChatMessageModel(apolloClient);
+
+      await chatMessageModel.addLocalMessages(
+        props.chatRoomId,
+        items.data.chatMessageList.data,
+        true,
+      );
+
+      await chatMessageModel.setPageMeta(
+        props.chatRoomId,
+        items.data.chatMessageList.pageMeta,
+      );
+    }
+    setIsMoreLoading(false);
+  };
+
+  const resetScroll = () => {
+    setIsMoreLoading(false);
+
     if (messagesRef) {
       messagesRef.scrollTop = messagesRef.scrollHeight;
     }
-  }, [data?.chatMessageList.length]);
+  };
 
-  const [
-    chatMessageSend,
-    { loading: isSendLoading },
-  ] = useMutation<Pick<Mutation, 'chatMessageSend'>, MutationChatMessageSendArgs>(UserQueries.chatMessageSend.query);
+  useEffect(() => {
+    resetScroll();
+  }, [props.chatRoomId]);
 
   if (error) {
     console.error(error);
@@ -65,6 +118,10 @@ export function ChatRoom(props: IChatMessagesProps) {
   }
 
   const sendMessage = async (text: string) => {
+    if (!text) {
+      return;
+    }
+
     await chatMessageSend({
       variables: {
         data: {
@@ -78,13 +135,20 @@ export function ChatRoom(props: IChatMessagesProps) {
   return (
     <div className={styles('container')}>
       <div className={styles('messages')} ref={onMessagesRef}>
-        {!data?.chatMessageList.length
+        {pageMeta?.hasMore && (
+          <div className={styles('load-more-button')}>
+            <Button isLoading={isMoreLoading} onPress={loadMore}>
+              Load more
+            </Button>
+          </div>
+        )}
+        {!messages.length
           ? (
             <div className={styles('empty')}>
               No messages yet ☹️
             </div>
           )
-          : data?.chatMessageList.map((chatMessage) => (
+          : messages.map((chatMessage) => (
             <ChatMessage
               date={new Date(chatMessage.createdAt)}
               key={chatMessage.id}

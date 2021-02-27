@@ -30,7 +30,7 @@ export interface IFormRowProps {
 }
 
 export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
-  children: string;
+  children: ReactNode;
   isLoading?: boolean;
   onPress?: () => void;
 }

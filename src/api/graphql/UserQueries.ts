@@ -1,9 +1,12 @@
-import { ChatMessageListInput, UserLoginInput, UserSignupInput } from '@definitions/graphql';
+import {
+  ChatMessageListInput, PaginatedInput, UserLoginInput, UserSignupInput,
+} from '@definitions/graphql';
 
 import { gql } from '@apollo/client';
 
 export interface IGQLVariables<Input> {
   data: Input;
+  pagination?: PaginatedInput;
 }
 
 export default {
@@ -47,19 +50,27 @@ export default {
   },
   chatMessageList: {
     query: gql`
-      query ChatMessageList($data: ChatMessageListInput!) {
-        chatMessageList(data: $data) {
-          id
-          text
-          createdAt
-          author {
+      query ChatMessageList($data: ChatMessageListInput!, $pagination: PaginatedInput) {
+        chatMessageList(data: $data, pagination: $pagination) {
+          data {
             id
-            email
+            text
+            createdAt
+            author {
+              id
+              email
+            }
+          }
+          pageMeta {
+            hasMore
           }
         }
       }
     `,
-    variables: (data: ChatMessageListInput): IGQLVariables<ChatMessageListInput> => ({ data }),
+    variables: (
+      data: ChatMessageListInput,
+      pagination?: PaginatedInput,
+    ): IGQLVariables<ChatMessageListInput> => ({ data, pagination }),
   },
   chatMessageSend: {
     query: gql`

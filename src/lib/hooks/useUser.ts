@@ -17,8 +17,6 @@ const useUser = (): IUseUser => {
     userGetCurrent();
   }, [isAuthorized]);
 
-  console.log('useUser', isAuthorized, data?.userGetCurrent);
-
   return {
     isAuthorized,
     user: data?.userGetCurrent,

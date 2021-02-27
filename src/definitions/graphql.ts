@@ -14,13 +14,14 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   chatList: Array<ChatRoom>;
-  chatMessageList: Array<ChatMessage>;
+  chatMessageList: ChatMessagePaginated;
   userLogin: Scalars['String'];
   userGetCurrent?: Maybe<User>;
 };
 
 
 export type QueryChatMessageListArgs = {
+  pagination?: Maybe<PaginatedInput>;
   data: ChatMessageListInput;
 };
 
@@ -36,8 +37,6 @@ export type ChatRoom = {
   updatedAt: Scalars['String'];
   name: Scalars['String'];
   users: Array<User>;
-  chatMessageIds: Array<Scalars['String']>;
-  chatMessages: Array<ChatMessage>;
 };
 
 export type User = {
@@ -70,6 +69,23 @@ export type ChatMessage = {
   text: Scalars['String'];
   author: User;
   chatRoom: ChatRoom;
+};
+
+export type ChatMessagePaginated = {
+  __typename?: 'ChatMessagePaginated';
+  data: Array<ChatMessage>;
+  pageMeta: PaginatedPageMeta;
+};
+
+export type PaginatedPageMeta = {
+  __typename?: 'PaginatedPageMeta';
+  hasMore: Scalars['Boolean'];
+};
+
+export type PaginatedInput = {
+  initTimestamp?: Maybe<Scalars['Float']>;
+  offset: Scalars['Float'];
+  limit: Scalars['Float'];
 };
 
 export type ChatMessageListInput = {

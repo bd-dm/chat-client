@@ -43,7 +43,7 @@ export default function ChatPage() {
 
   const chatOnNewMessage = async (message: ChatMessage) => {
     const chatMessageModel = new ChatMessageModel(apolloClient);
-    await chatMessageModel.addLocalMessage(message.chatRoom.id, message);
+    await chatMessageModel.addLocalMessages(message.chatRoom.id, [message]);
 
     if (
       user?.id !== message.author.id
