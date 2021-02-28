@@ -1,6 +1,11 @@
 .container {
-  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
   margin: 0 10px;
+}
+
+.image {
+  background-color: #fafafa;
   position: relative;
 }
 
@@ -41,4 +46,18 @@
 
 .remove:hover {
   background-color: #000;
+}
+
+.progress {
+  height: 7px;
+  width: 100%;
+}
+
+.progress--active {
+  background-color: #aaa;
+}
+
+.progress-filled {
+  background-color: #000;
+  height: 100%;
 }

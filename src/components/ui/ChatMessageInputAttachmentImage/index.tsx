@@ -14,12 +14,14 @@ const styles = styleImport(stylesFile);
 export function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachmentProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
+  const { attachment } = props;
+
   useEffect(() => {
     (async () => {
-      const src: string = await fileToDataUrl(props.file);
+      const src: string = await fileToDataUrl(attachment.file);
       setImageSrc(src);
     })();
-  }, [props.file]);
+  }, [attachment.file]);
 
   const onRemovePress = () => {
     if (props.onRemovePress) {
@@ -29,25 +31,35 @@ export function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachme
 
   return (
     <div className={styles('container')}>
-      {imageSrc && (
+      <div className={styles('image')}>
+        {imageSrc && (
         <Image
           height={100}
           objectFit="contain"
           src={imageSrc}
           width={100}
         />
-      )}
-      <div className={styles('overlay')} />
-      <div className={styles('name')}>
-        {props.file.name}
+        )}
+        <div className={styles('overlay')} />
+        <div className={styles('name')}>
+          ...{attachment.file.name.slice(-9)}
+        </div>
+        <a
+          className={styles('remove')}
+          href="#"
+          onClick={onRemovePress}
+        >
+          &times;
+        </a>
       </div>
-      <a
-        className={styles('remove')}
-        href="#"
-        onClick={onRemovePress}
-      >
-        &times;
-      </a>
+      <div className={styles(...['progress', attachment.progress ? 'progress--active' : ''])}>
+        <div
+          className={styles('progress-filled')}
+          style={{
+            width: `${attachment.progress}%`,
+          }}
+        />
+      </div>
     </div>
   );
 }

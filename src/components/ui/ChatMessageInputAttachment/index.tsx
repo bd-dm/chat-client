@@ -5,9 +5,9 @@ import { ChatMessageInputAttachmentImage } from '@components/ui/ChatMessageInput
 import { IChatMessageInputAttachmentProps } from '@definitions/ui';
 
 export function ChatMessageInputAttachment(props: IChatMessageInputAttachmentProps) {
-  const { file } = props;
+  const { attachment } = props;
 
-  switch (file.type) {
+  switch (attachment.file.type) {
     case 'image/png':
     case 'image/jpg':
     case 'image/jpeg':

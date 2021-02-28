@@ -1,4 +1,4 @@
-import React, { KeyboardEvent } from 'react';
+import React, { KeyboardEvent, useMemo } from 'react';
 
 import Button from '@components/ui/Button';
 import ButtonFileInput from '@components/ui/ButtonFileInput';
@@ -19,6 +19,8 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
     text,
   } = props;
 
+  const attachmentFiles = useMemo(() => attachments.map((el) => el.file), [attachments]);
+
   const send = () => {
     if (!text) {
       return;
@@ -37,7 +39,7 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
 
   const onFileRemovePress = (idx: number) => () => {
     if (props.onAttachmentsChange) {
-      const prev = [...attachments];
+      const prev = [...attachmentFiles];
       prev.splice(idx, 1);
       props.onAttachmentsChange(prev);
     }
@@ -59,11 +61,11 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
 
   return (
     <div className={styles('container')}>
-      {attachments.length > 0 && (
+      {attachmentFiles.length > 0 && (
         <div className={styles('files')}>
           {attachments.map((attachment, idx) => (
             <ChatMessageInputAttachment
-              file={attachment}
+              attachment={attachment}
               key={idx}
               onRemovePress={onFileRemovePress(idx)}
             />

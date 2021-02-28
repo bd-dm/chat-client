@@ -129,12 +129,21 @@ export function ChatRoom(props: IChatMessagesProps) {
     return <p>Загрузка...</p>;
   }
 
+  const setAttachmentProgress = (idx: number, progress: number) => {
+    setAttachments(
+      (prev) => prev.map(
+        (el, id) => (idx === id ? { ...el, progress } : el),
+      ),
+    );
+  };
+
   const uploadAttachments = async (): Promise<(string | boolean)[] | boolean> => {
     const uploadUris = await apolloClient.query<Pick<Query, 'chatMessageGetAttachmentUploadUris'>>({
       query: UserQueries.chatMessageGetAttachmentUploadUris.query,
       variables: UserQueries.chatMessageGetAttachmentUploadUris.variables({
         count: attachments.length,
       }),
+      fetchPolicy: 'no-cache',
     });
 
     if (!uploadUris?.data?.chatMessageGetAttachmentUploadUris) {
@@ -147,6 +156,7 @@ export function ChatRoom(props: IChatMessagesProps) {
         filePutToUri(
           uploadUris.data.chatMessageGetAttachmentUploadUris[i],
           attachmentFiles[i],
+          (progress) => setAttachmentProgress(i, progress),
         ),
       );
     }
@@ -216,7 +226,7 @@ export function ChatRoom(props: IChatMessagesProps) {
       </div>
       <div>
         <ChatMessageInput
-          attachments={attachmentFiles}
+          attachments={attachments}
           isLoading={isSendLoading}
           text={messageText}
           onAttachmentsChange={onAttachmentsChange}

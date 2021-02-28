@@ -22,7 +22,7 @@ export interface ITextAreaProps{
 export interface ITextInputChatMessageProps{
   onSend?: () => void;
   text: string;
-  attachments: File[];
+  attachments: IChatMessageAttachment[];
   onTextChange?: (text: string) => void;
   onAttachmentsChange?: (attachments: File[]) => void;
   isLoading?: boolean;
@@ -71,7 +71,7 @@ export interface IChatMessageAttachmentProps {
 }
 
 export interface IChatMessageInputAttachmentProps {
-  file: File;
+  attachment: IChatMessageAttachment;
   onRemovePress?: () => void;
 }
 

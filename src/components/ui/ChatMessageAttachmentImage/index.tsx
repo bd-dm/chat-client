@@ -10,6 +10,9 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
+const imgWidth = 200;
+const imgHeight = 200;
+
 export default function ChatMessageAttachmentImage(props: IChatMessageAttachmentProps) {
   const { attachment } = props;
 
@@ -18,11 +21,11 @@ export default function ChatMessageAttachmentImage(props: IChatMessageAttachment
       <div className={styles('image')}>
         <Image
           alt="attachment"
-          height={200}
+          height={imgHeight}
           objectFit="cover"
           objectPosition="center center"
           src={attachment.uri}
-          width={200}
+          width={imgWidth}
         />
       </div>
     </div>

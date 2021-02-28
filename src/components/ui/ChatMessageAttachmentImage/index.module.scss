@@ -5,9 +5,21 @@
 }
 
 .image {
+  background-color: #fff;
   height: 200px;
+  position: relative;
   transition: transform 1s, opacity 1s;
   width: 200px;
+  z-index: 1;
+}
+
+.image-loader {
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: 0;
 }
 
 .container:hover .image {
