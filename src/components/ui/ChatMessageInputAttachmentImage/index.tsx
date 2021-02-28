@@ -35,7 +35,7 @@ export function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachme
         {imageSrc && (
         <Image
           height={100}
-          objectFit="contain"
+          objectFit="cover"
           src={imageSrc}
           width={100}
         />

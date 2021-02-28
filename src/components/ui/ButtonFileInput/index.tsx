@@ -28,6 +28,10 @@ export default function ButtonFileInput(props: IButtonFileInputProps) {
     if (onFilesChange) {
       const files = Array.from(e.target.files || []);
       onFilesChange(files);
+
+      if (inputRef?.current) {
+        inputRef.current.value = '';
+      }
     }
   };
 
