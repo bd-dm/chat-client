@@ -22,4 +22,7 @@ module.exports = {
 
         return config;
     },
+    images: {
+        domains: ['bd-dm-chat-attachments.s3.eu-north-1.amazonaws.com'],
+    },
 }

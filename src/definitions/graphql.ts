@@ -9,11 +9,14 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  /** The javascript `Date` as string. Type represents date and time as the ISO Date string. */
+  DateTime: any;
 };
 
 export type Query = {
   __typename?: 'Query';
   chatList: Array<ChatRoom>;
+  chatMessageGetAttachmentUploadUri: FileUri;
   chatMessageList: ChatMessagePaginated;
   userLogin: Scalars['String'];
   userGetCurrent?: Maybe<User>;
@@ -33,48 +36,48 @@ export type QueryUserLoginArgs = {
 export type ChatRoom = {
   __typename?: 'ChatRoom';
   id: Scalars['ID'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   name: Scalars['String'];
   users: Array<User>;
 };
 
+
 export type User = {
   __typename?: 'User';
   id: Scalars['ID'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
   email: Scalars['String'];
-  userToChatRooms: Array<UserToChatRoom>;
-  chatMessages: Array<ChatMessage>;
 };
 
-export type UserToChatRoom = {
-  __typename?: 'UserToChatRoom';
-  id: Scalars['ID'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
-  userId: Scalars['String'];
-  chatRoomId: Scalars['String'];
-  role: Scalars['String'];
-  user: User;
-  chatRoom: ChatRoom;
-};
-
-export type ChatMessage = {
-  __typename?: 'ChatMessage';
-  id: Scalars['ID'];
-  createdAt: Scalars['String'];
-  updatedAt: Scalars['String'];
-  text: Scalars['String'];
-  author: User;
-  chatRoom: ChatRoom;
+export type FileUri = {
+  __typename?: 'FileUri';
+  id: Scalars['String'];
+  uri: Scalars['String'];
+  mime?: Maybe<Scalars['String']>;
 };
 
 export type ChatMessagePaginated = {
   __typename?: 'ChatMessagePaginated';
   data: Array<ChatMessage>;
   pageMeta: PaginatedPageMeta;
+};
+
+export type ChatMessage = {
+  __typename?: 'ChatMessage';
+  id: Scalars['ID'];
+  createdAt: Scalars['DateTime'];
+  updatedAt: Scalars['DateTime'];
+  text: Scalars['String'];
+  author: User;
+  chatRoom: BaseEntityId;
+  attachments: Array<FileUri>;
+};
+
+export type BaseEntityId = {
+  __typename?: 'BaseEntityId';
+  id: Scalars['ID'];
 };
 
 export type PaginatedPageMeta = {
@@ -127,6 +130,7 @@ export type ChatCreateInput = {
 export type ChatMessageSendInput = {
   chatRoomId: Scalars['String'];
   text: Scalars['String'];
+  chatAttachmentIds?: Maybe<Array<Scalars['String']>>;
 };
 
 export type UserSignupInput = {

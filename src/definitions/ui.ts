@@ -1,6 +1,7 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
 import { INotification } from '@definitions/context';
+import { ChatMessage, FileUri } from '@definitions/graphql';
 
 export interface ITextInputProps{
   onValueChange?: (text: string) => void;
@@ -47,9 +48,11 @@ export interface IChatMessagesProps {
 }
 
 export interface IChatMessageProps {
-  name: string;
-  text: string;
-  date: Date;
+  message: ChatMessage;
+}
+
+export interface IChatMessageAttachmentProps {
+  attachment: FileUri;
 }
 
 export interface IHeaderMenuItemProps {

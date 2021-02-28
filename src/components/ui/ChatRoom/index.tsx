@@ -157,10 +157,8 @@ export function ChatRoom(props: IChatMessagesProps) {
             )
             : messages.map((chatMessage) => (
               <ChatMessage
-                date={new Date(chatMessage.createdAt)}
                 key={chatMessage.id}
-                name={chatMessage.author.email}
-                text={chatMessage.text}
+                message={chatMessage}
               />
             ))}
         </div>

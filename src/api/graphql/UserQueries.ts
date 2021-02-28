@@ -60,6 +60,11 @@ export default {
               id
               email
             }
+            attachments {
+              id
+              uri
+              mime
+            }
           }
           pageMeta {
             hasMore
