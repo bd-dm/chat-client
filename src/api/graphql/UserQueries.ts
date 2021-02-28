@@ -1,5 +1,6 @@
 import {
-  ChatMessageListInput, PaginatedInput, UserLoginInput, UserSignupInput,
+  ChatMessageGetAttachmentUploadUrisInput,
+  ChatMessageListInput, ChatMessageSendInput, PaginatedInput, UserLoginInput, UserSignupInput,
 } from '@definitions/graphql';
 
 import { gql } from '@apollo/client';
@@ -91,6 +92,17 @@ export default {
         }
       }
     `,
-    variables: () => ({}),
+    variables: (data: ChatMessageSendInput) => ({ data }),
+  },
+  chatMessageGetAttachmentUploadUris: {
+    query: gql`
+      query ChatMessageGetAttachmentUploadUris($data: ChatMessageGetAttachmentUploadUrisInput!) {
+        chatMessageGetAttachmentUploadUris(data: $data) {
+          id
+          uri
+        }
+      }
+    `,
+    variables: (data: ChatMessageGetAttachmentUploadUrisInput) => ({ data }),
   },
 };

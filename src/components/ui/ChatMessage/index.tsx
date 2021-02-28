@@ -38,14 +38,16 @@ export function ChatMessage(props: IChatMessageProps) {
         <div className={styles('text')}>
           {message.text}
         </div>
-        <div className={styles('attachments')}>
-          {message.attachments.map((attachment) => (
-            <ChatMessageAttachment
-              attachment={attachment}
-              key={attachment.id}
-            />
-          ))}
-        </div>
+        {message.attachments.length > 0 && (
+          <div className={styles('attachments')}>
+            {message.attachments.map((attachment) => (
+              <ChatMessageAttachment
+                attachment={attachment}
+                key={attachment.id}
+              />
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );

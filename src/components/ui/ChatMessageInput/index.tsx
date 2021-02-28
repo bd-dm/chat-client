@@ -1,4 +1,4 @@
-import React, { KeyboardEvent, useState } from 'react';
+import React, { KeyboardEvent } from 'react';
 
 import Button from '@components/ui/Button';
 import ButtonFileInput from '@components/ui/ButtonFileInput';
@@ -14,30 +14,33 @@ import stylesFile from './index.module.scss';
 const styles = styleImport(stylesFile);
 
 export default function ChatMessageInput(props: ITextInputChatMessageProps) {
-  const [text, setText] = useState('');
-  const [files, setFiles] = useState<File[]>([]);
+  const {
+    attachments,
+    text,
+  } = props;
 
   const send = () => {
-    setText('');
-    setFiles([]);
+    if (!text) {
+      return;
+    }
+
     if (props.onSend) {
-      props.onSend(text, files);
+      props.onSend();
     }
   };
 
   const onFilesChange = (items: File[]) => {
-    setFiles(items);
-    if (props.onAttachmentsChanged) {
-      props.onAttachmentsChanged(items);
+    if (props.onAttachmentsChange) {
+      props.onAttachmentsChange(items);
     }
   };
 
   const onFileRemovePress = (idx: number) => () => {
-    setFiles((prevState) => {
-      const prev = [...prevState];
+    if (props.onAttachmentsChange) {
+      const prev = [...attachments];
       prev.splice(idx, 1);
-      return prev;
-    });
+      props.onAttachmentsChange(prev);
+    }
   };
 
   const handleKeyDown = (event: KeyboardEvent<HTMLTextAreaElement>) => {
@@ -45,7 +48,9 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
       event.preventDefault();
 
       if (event.shiftKey || event.ctrlKey) {
-        setText((prevState) => `${prevState}\n`);
+        if (props.onTextChange) {
+          props.onTextChange(`${text}\n`);
+        }
       } else {
         send();
       }
@@ -54,11 +59,11 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
 
   return (
     <div className={styles('container')}>
-      {files.length > 0 && (
+      {attachments.length > 0 && (
         <div className={styles('files')}>
-          {files.map((file, idx) => (
+          {attachments.map((attachment, idx) => (
             <ChatMessageInputAttachment
-              file={file}
+              file={attachment}
               key={idx}
               onRemovePress={onFileRemovePress(idx)}
             />
@@ -78,7 +83,7 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
             placeholder: 'Введите сообщение...',
           }}
           value={text}
-          onValueChange={setText}
+          onValueChange={props.onTextChange}
           {...props.textAreaProps}
         />
         <Button

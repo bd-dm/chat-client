@@ -1,4 +1,16 @@
 .container {
-  margin-top: 20px;
+  cursor: pointer;
+  overflow: hidden;
   position: relative;
+}
+
+.image {
+  height: 200px;
+  transition: transform 1s, opacity 1s;
+  width: 200px;
+}
+
+.container:hover .image {
+  opacity: 0.9;
+  transform: scale(1.02);
 }

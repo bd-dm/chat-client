@@ -15,12 +15,16 @@ export default function ChatMessageAttachmentImage(props: IChatMessageAttachment
 
   return (
     <div className={styles('container')}>
-      <Image
-        alt="attachment"
-        height={200}
-        src={attachment.uri}
-        width={200}
-      />
+      <div className={styles('image')}>
+        <Image
+          alt="attachment"
+          height={200}
+          objectFit="cover"
+          objectPosition="center center"
+          src={attachment.uri}
+          width={200}
+        />
+      </div>
     </div>
   );
 }

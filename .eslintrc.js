@@ -41,6 +41,7 @@ module.exports = {
         'react/self-closing-comp': 0,
         'react/no-access-state-in-setstate': 0,
         'implicit-arrow-linebreak': 0,
+        'no-plusplus': 0,
         'no-useless-constructor': 0,
         '@typescript-eslint/no-useless-constructor': 'error',
         'no-dupe-class-members': 0,

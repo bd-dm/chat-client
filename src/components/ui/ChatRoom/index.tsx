@@ -10,13 +10,15 @@ import { ChatMessage } from '@components/ui/ChatMessage';
 import ChatMessageInput from '@components/ui/ChatMessageInput';
 
 import {
+  ChatMessageSendInput,
   Mutation,
   MutationChatMessageSendArgs,
   Query,
 } from '@definitions/graphql';
-import { IChatMessagesProps } from '@definitions/ui';
+import { IChatMessageAttachment, IChatMessagesProps } from '@definitions/ui';
 
 import apolloClient from '@lib/classes/ApiClient';
+import { filePutToUri } from '@lib/utils/files';
 import { styleImport } from '@lib/utils/style';
 
 import ChatMessageModel from '@models/ChatMessageModel';
@@ -30,6 +32,10 @@ const styles = styleImport(stylesFile);
 export function ChatRoom(props: IChatMessagesProps) {
   const [messagesRef, setMessagesRef] = useState<HTMLDivElement | null>(null);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
+  const [messageText, setMessageText] = useState('');
+  const [attachments, setAttachments] = useState<IChatMessageAttachment[]>([]);
+
+  const attachmentFiles = useMemo(() => attachments.map((el) => el.file), [attachments]);
 
   const {
     loading: isLoading,
@@ -70,7 +76,7 @@ export function ChatRoom(props: IChatMessagesProps) {
 
   useEffect(() => {
     if (messagesRef) {
-      messagesRef.scrollTop = messagesRef.scrollHeight;
+      resetScroll();
     }
   }, [messages.length]);
 
@@ -103,14 +109,14 @@ export function ChatRoom(props: IChatMessagesProps) {
   };
 
   const resetScroll = () => {
-    setIsMoreLoading(false);
-
     if (messagesRef) {
       messagesRef.scrollTop = messagesRef.scrollHeight;
     }
   };
 
   useEffect(() => {
+    setIsMoreLoading(false);
+
     resetScroll();
   }, [props.chatRoomId]);
 
@@ -123,21 +129,64 @@ export function ChatRoom(props: IChatMessagesProps) {
     return <p>Загрузка...</p>;
   }
 
-  const sendMessage = async (text: string, attachments: File[]) => {
-    if (!text) {
+  const uploadAttachments = async (): Promise<(string | boolean)[] | boolean> => {
+    const uploadUris = await apolloClient.query<Pick<Query, 'chatMessageGetAttachmentUploadUris'>>({
+      query: UserQueries.chatMessageGetAttachmentUploadUris.query,
+      variables: UserQueries.chatMessageGetAttachmentUploadUris.variables({
+        count: attachments.length,
+      }),
+    });
+
+    if (!uploadUris?.data?.chatMessageGetAttachmentUploadUris) {
+      return false;
+    }
+
+    const filePutPromises = [];
+    for (let i = 0; i < attachments.length; i++) {
+      filePutPromises.push(
+        filePutToUri(
+          uploadUris.data.chatMessageGetAttachmentUploadUris[i],
+          attachmentFiles[i],
+        ),
+      );
+    }
+
+    return Promise.all(filePutPromises);
+  };
+
+  const sendMessage = async () => {
+    if (!messageText) {
       return;
     }
 
-    console.log('send with attachments', attachments);
+    let attachmentIds: (string | boolean)[] | boolean = false;
+    if (attachments.length > 0) {
+      attachmentIds = await uploadAttachments();
+    }
+
+    const variables: ChatMessageSendInput = {
+      chatRoomId: props.chatRoomId,
+      text: messageText,
+    };
+
+    if (attachmentIds && (attachmentIds as Array<string>).length) {
+      variables.chatAttachmentIds = attachmentIds as Array<string>;
+    }
 
     await chatMessageSend({
-      variables: {
-        data: {
-          chatRoomId: props.chatRoomId,
-          text,
-        },
-      },
+      variables: UserQueries.chatMessageSend.variables(variables),
     });
+
+    setAttachments([]);
+    setMessageText('');
+  };
+
+  const onAttachmentsChange = (files: File[]) => {
+    setAttachments(files.map((file) => ({ file, progress: 0 })));
+  };
+
+  const onMessageTextChange = (text: string) => {
+    setMessageText(text);
   };
 
   return (
@@ -167,8 +216,12 @@ export function ChatRoom(props: IChatMessagesProps) {
       </div>
       <div>
         <ChatMessageInput
+          attachments={attachmentFiles}
           isLoading={isSendLoading}
+          text={messageText}
+          onAttachmentsChange={onAttachmentsChange}
           onSend={sendMessage}
+          onTextChange={onMessageTextChange}
         />
       </div>
     </div>

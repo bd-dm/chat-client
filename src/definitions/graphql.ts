@@ -16,10 +16,15 @@ export type Scalars = {
 export type Query = {
   __typename?: 'Query';
   chatList: Array<ChatRoom>;
-  chatMessageGetAttachmentUploadUri: FileUri;
+  chatMessageGetAttachmentUploadUris: Array<FileUri>;
   chatMessageList: ChatMessagePaginated;
   userLogin: Scalars['String'];
   userGetCurrent?: Maybe<User>;
+};
+
+
+export type QueryChatMessageGetAttachmentUploadUrisArgs = {
+  data: ChatMessageGetAttachmentUploadUrisInput;
 };
 
 
@@ -56,6 +61,10 @@ export type FileUri = {
   id: Scalars['String'];
   uri: Scalars['String'];
   mime?: Maybe<Scalars['String']>;
+};
+
+export type ChatMessageGetAttachmentUploadUrisInput = {
+  count: Scalars['Float'];
 };
 
 export type ChatMessagePaginated = {

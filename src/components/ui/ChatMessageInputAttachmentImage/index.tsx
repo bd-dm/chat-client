@@ -4,6 +4,7 @@ import Image from 'next/image';
 
 import { IChatMessageInputAttachmentProps } from '@definitions/ui';
 
+import { fileToDataUrl } from '@lib/utils/files';
 import { styleImport } from '@lib/utils/style';
 
 import stylesFile from './index.module.scss';
@@ -15,17 +16,7 @@ export function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachme
 
   useEffect(() => {
     (async () => {
-      const reader = new FileReader();
-      const src: string = await new Promise((resolve, reject) => {
-        reader.onload = (e) => {
-          if (e?.target?.result) {
-            resolve(e.target.result.toString());
-          } else {
-            reject(new Error('Wrong image'));
-          }
-        };
-        reader.readAsDataURL(props.file);
-      });
+      const src: string = await fileToDataUrl(props.file);
       setImageSrc(src);
     })();
   }, [props.file]);

@@ -20,8 +20,11 @@ export interface ITextAreaProps{
 }
 
 export interface ITextInputChatMessageProps{
-  onSend?: (text: string, attachments: File[]) => void;
-  onAttachmentsChanged?: (attachments: File[]) => void;
+  onSend?: () => void;
+  text: string;
+  attachments: File[];
+  onTextChange?: (text: string) => void;
+  onAttachmentsChange?: (attachments: File[]) => void;
   isLoading?: boolean;
   textAreaProps?: ITextAreaProps;
 }
@@ -52,6 +55,11 @@ export interface IChatRoomCardProps {
 
 export interface IChatMessagesProps {
   chatRoomId: string;
+}
+
+export interface IChatMessageAttachment {
+  file: File;
+  progress: number;
 }
 
 export interface IChatMessageProps {

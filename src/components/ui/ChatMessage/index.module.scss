@@ -42,6 +42,9 @@
 
 .attachments {
   align-items: center;
-  display: flex;
+  border-radius: 10px;
+  display: inline-flex;
   flex-direction: row;
+  margin-top: 20px;
+  overflow: hidden;
 }
