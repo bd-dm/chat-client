@@ -23,10 +23,8 @@ export default function Button(props: IButtonProps) {
   }
 
   return (
-    <>
-      <button className={styles(...styleList)} onClick={onPress}>
-        {isLoading ? 'Загрузка...' : children}
-      </button>
-    </>
+    <button className={styles(...styleList)} onClick={onPress}>
+      {isLoading ? 'Загрузка...' : children}
+    </button>
   );
 }

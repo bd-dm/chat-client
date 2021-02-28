@@ -9,6 +9,8 @@ export function ChatMessageAttachment(props: IChatMessageAttachmentProps) {
 
   switch (attachment.mime) {
     case 'image/png':
+    case 'image/jpg':
+    case 'image/jpeg':
       return (
         <ChatMessageAttachmentImage {...props} />
       );

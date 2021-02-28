@@ -7,7 +7,7 @@ import UserQueries from '@api/graphql/UserQueries';
 
 import Button from '@components/ui/Button';
 import { ChatMessage } from '@components/ui/ChatMessage';
-import TextAreaChatMessage from '@components/ui/TextAreaChatMessage';
+import ChatMessageInput from '@components/ui/ChatMessageInput';
 
 import {
   Mutation,
@@ -123,10 +123,12 @@ export function ChatRoom(props: IChatMessagesProps) {
     return <p>Загрузка...</p>;
   }
 
-  const sendMessage = async (text: string) => {
+  const sendMessage = async (text: string, attachments: File[]) => {
     if (!text) {
       return;
     }
+
+    console.log('send with attachments', attachments);
 
     await chatMessageSend({
       variables: {
@@ -163,8 +165,8 @@ export function ChatRoom(props: IChatMessagesProps) {
             ))}
         </div>
       </div>
-      <div className={styles('input-container')}>
-        <TextAreaChatMessage
+      <div>
+        <ChatMessageInput
           isLoading={isSendLoading}
           onSend={sendMessage}
         />

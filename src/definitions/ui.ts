@@ -20,7 +20,8 @@ export interface ITextAreaProps{
 }
 
 export interface ITextInputChatMessageProps{
-  onSend?: (text: string) => void;
+  onSend?: (text: string, attachments: File[]) => void;
+  onAttachmentsChanged?: (attachments: File[]) => void;
   isLoading?: boolean;
   textAreaProps?: ITextAreaProps;
 }
@@ -35,6 +36,12 @@ export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
   isLoading?: boolean;
   onPress?: () => void;
   isFullWidth?: boolean;
+}
+
+export interface IButtonFileInputProps{
+  children: ReactNode;
+  buttonProps?: IButtonProps;
+  onFilesChange?: (files: File[]) => void;
 }
 
 export interface IChatRoomCardProps {
@@ -53,6 +60,11 @@ export interface IChatMessageProps {
 
 export interface IChatMessageAttachmentProps {
   attachment: FileUri;
+}
+
+export interface IChatMessageInputAttachmentProps {
+  file: File;
+  onRemovePress?: () => void;
 }
 
 export interface IHeaderMenuItemProps {
