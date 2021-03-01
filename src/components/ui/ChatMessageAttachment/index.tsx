@@ -1,10 +1,12 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import ChatMessageAttachmentImage from '@components/ui/ChatMessageAttachmentImage';
 
 import { IChatMessageAttachmentProps } from '@definitions/ui';
 
-export function ChatMessageAttachment(props: IChatMessageAttachmentProps) {
+function ChatMessageAttachment(props: IChatMessageAttachmentProps) {
   const { attachment } = props;
 
   switch (attachment.mime) {
@@ -17,3 +19,5 @@ export function ChatMessageAttachment(props: IChatMessageAttachmentProps) {
     default: return null;
   }
 }
+
+export default React.memo(ChatMessageAttachment, deepEqual);

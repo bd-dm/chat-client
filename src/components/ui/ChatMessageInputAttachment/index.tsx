@@ -1,10 +1,12 @@
 import React from 'react';
 
-import { ChatMessageInputAttachmentImage } from '@components/ui/ChatMessageInputAttachmentImage';
+import deepEqual from 'deep-equal';
+
+import ChatMessageInputAttachmentImage from '@components/ui/ChatMessageInputAttachmentImage';
 
 import { IChatMessageInputAttachmentProps } from '@definitions/ui';
 
-export function ChatMessageInputAttachment(props: IChatMessageInputAttachmentProps) {
+function ChatMessageInputAttachment(props: IChatMessageInputAttachmentProps) {
   const { attachment } = props;
 
   switch (attachment.file.type) {
@@ -17,3 +19,5 @@ export function ChatMessageInputAttachment(props: IChatMessageInputAttachmentPro
     default: return null;
   }
 }
+
+export default React.memo(ChatMessageInputAttachment, deepEqual);

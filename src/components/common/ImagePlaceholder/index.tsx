@@ -1,5 +1,7 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { IImagePlaceholderProps } from '@definitions/common';
 
 import { styleImport } from '@lib/utils/style';
@@ -8,7 +10,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function ImagePlaceholder(props: IImagePlaceholderProps) {
+function ImagePlaceholder(props: IImagePlaceholderProps) {
   return (
     <div
       className={styles('container')}
@@ -16,3 +18,5 @@ export default function ImagePlaceholder(props: IImagePlaceholderProps) {
     />
   );
 }
+
+export default React.memo(ImagePlaceholder, deepEqual);

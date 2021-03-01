@@ -1,5 +1,7 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { IButtonProps } from '@definitions/ui';
 
 import { styleImport } from '@lib/utils/style';
@@ -8,7 +10,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function Button(props: IButtonProps) {
+function Button(props: IButtonProps) {
   const {
     isLoading = false,
     children,
@@ -28,3 +30,5 @@ export default function Button(props: IButtonProps) {
     </button>
   );
 }
+
+export default React.memo(Button, deepEqual);

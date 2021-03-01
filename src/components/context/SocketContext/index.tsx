@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
+import deepEqual from 'deep-equal';
 import { io } from 'socket.io-client';
 
 import { ISocketContextProviderProps, ISocketContextSocket, ISocketContextValue } from '@definitions/context';
@@ -18,49 +19,52 @@ export const socketContextDefaultValue: ISocketContextValue = {
 
 export const SocketContext = React.createContext<ISocketContextValue>(socketContextDefaultValue);
 
-export const SocketContextProvider = (props: ISocketContextProviderProps) => {
-  const [socket, setSocket] = useState<ISocketContextSocket>(null);
-  const userToken = useReactiveVar(userStore.token);
-  const isAuthorized = useAuth();
+export const SocketContextProvider = React.memo(
+  (props: ISocketContextProviderProps) => {
+    const [socket, setSocket] = useState<ISocketContextSocket>(null);
+    const userToken = useReactiveVar(userStore.token);
+    const isAuthorized = useAuth();
 
-  useEffect(() => {
-    if (socket) {
+    useEffect(() => {
+      if (socket) {
       socket?.disconnect();
       setSocket(null);
 
       initSocket();
-    }
-  }, [isAuthorized]);
+      }
+    }, [isAuthorized]);
 
-  useEffect(() => {
-    if (socket) {
-      socket.on('error', () => {
-        console.error(`socket error: ${socket.id}`);
+    useEffect(() => {
+      if (socket) {
+        socket.on('error', () => {
+          console.error(`socket error: ${socket.id}`);
+        });
+      }
+    }, [socket]);
+
+    const initSocket = () => {
+      if (socket?.connected || !!socket) {
+        return;
+      }
+
+      const newSocket = io(config.apiSocketHost, {
+        path: config.apiSocketPath,
+        auth: { token: userToken },
       });
-    }
-  }, [socket]);
 
-  const initSocket = () => {
-    if (socket?.connected || !!socket) {
-      return;
-    }
+      setSocket(newSocket);
+    };
 
-    const newSocket = io(config.apiSocketHost, {
-      path: config.apiSocketPath,
-      auth: { token: userToken },
-    });
-
-    setSocket(newSocket);
-  };
-
-  return (
-    <SocketContext.Provider
-      value={{
-        initSocket,
-        socket,
-      }}
-    >
-      {props.children}
-    </SocketContext.Provider>
-  );
-};
+    return (
+      <SocketContext.Provider
+        value={{
+          initSocket,
+          socket,
+        }}
+      >
+        {props.children}
+      </SocketContext.Provider>
+    );
+  },
+  deepEqual,
+);

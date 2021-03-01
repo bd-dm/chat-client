@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
+import deepEqual from 'deep-equal';
+
 import { IChatMessageInputAttachmentProps } from '@definitions/ui';
 
 import { fileToDataUrl } from '@lib/utils/files';
@@ -11,7 +13,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachmentProps) {
+function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachmentProps) {
   const [imageSrc, setImageSrc] = useState<string | null>(null);
 
   const { attachment } = props;
@@ -63,3 +65,5 @@ export function ChatMessageInputAttachmentImage(props: IChatMessageInputAttachme
     </div>
   );
 }
+
+export default React.memo(ChatMessageInputAttachmentImage, deepEqual);

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import Header from '@components/ui/Header';
 
 import { IPageLayoutProps } from '@definitions/layout';
@@ -10,7 +12,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function PageLayout(props: IPageLayoutProps) {
+function PageLayout(props: IPageLayoutProps) {
   return (
     <div className={styles('container')}>
       <div className={styles('header')}>
@@ -22,3 +24,5 @@ export default function PageLayout(props: IPageLayoutProps) {
     </div>
   );
 }
+
+export default React.memo(PageLayout, deepEqual);

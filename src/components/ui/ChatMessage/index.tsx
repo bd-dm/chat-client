@@ -2,9 +2,10 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import deepEqual from 'deep-equal';
 import moment from 'moment';
 
-import { ChatMessageAttachment } from '@components/ui/ChatMessageAttachment';
+import ChatMessageAttachment from '@components/ui/ChatMessageAttachment';
 
 import { IChatMessageProps } from '@definitions/ui';
 
@@ -14,7 +15,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export function ChatMessage(props: IChatMessageProps) {
+function ChatMessage(props: IChatMessageProps) {
   const { message } = props;
 
   return (
@@ -52,3 +53,5 @@ export function ChatMessage(props: IChatMessageProps) {
     </div>
   );
 }
+
+export default React.memo(ChatMessage, deepEqual);

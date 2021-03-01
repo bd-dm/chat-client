@@ -1,5 +1,7 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { IFormRowProps } from '@definitions/ui';
 
 import { styleImport } from '@lib/utils/style';
@@ -8,7 +10,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function FormRow(props: IFormRowProps) {
+function FormRow(props: IFormRowProps) {
   return (
     <div className={styles('form-row')}>
       {props.label && (
@@ -22,3 +24,5 @@ export default function FormRow(props: IFormRowProps) {
     </div>
   );
 }
+
+export default React.memo(FormRow, deepEqual);

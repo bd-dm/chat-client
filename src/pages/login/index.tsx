@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import UserQueries from '@api/graphql/UserQueries';
 
 import Button from '@components/ui/Button';
@@ -22,7 +24,7 @@ interface ILoginFormState {
   password: string;
 }
 
-export default function LoginPage() {
+function LoginPage() {
   useAuth({
     allowedStates: [IUserAuthState.GUEST],
   });
@@ -59,10 +61,10 @@ export default function LoginPage() {
   return (
     <div>
       <FormRow label="E-Mail">
-        <TextInput name="email" onValueChange={onChange('email')} />
+        <TextInput onValueChange={onChange('email')} />
       </FormRow>
       <FormRow label="Пароль">
-        <TextInput name="password" onValueChange={onChange('password')} />
+        <TextInput onValueChange={onChange('password')} />
       </FormRow>
       <FormRow>
         <Button isLoading={loading} onPress={onLoginPress}>
@@ -72,3 +74,5 @@ export default function LoginPage() {
     </div>
   );
 }
+
+export default React.memo(LoginPage, deepEqual);

@@ -1,8 +1,10 @@
 import React, { FormEvent, KeyboardEvent } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { ITextAreaProps } from '@definitions/ui';
 
-export default function TextArea(props: ITextAreaProps) {
+function TextArea(props: ITextAreaProps) {
   const onChange = (e: FormEvent<HTMLTextAreaElement>) => {
     if (props.onValueChange) {
       props.onValueChange(e.currentTarget.value);
@@ -27,3 +29,5 @@ export default function TextArea(props: ITextAreaProps) {
     </>
   );
 }
+
+export default React.memo(TextArea, deepEqual);

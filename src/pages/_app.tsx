@@ -5,6 +5,8 @@ import React, { useEffect, useState } from 'react';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 
+import deepEqual from 'deep-equal';
+
 import { NotificationContextProvider } from '@components/context/NotificationContext';
 import { SocketContextProvider } from '@components/context/SocketContext';
 import PageLayout from '@components/layout/PageLayout';
@@ -45,4 +47,4 @@ function App({ Component, pageProps }: AppProps) {
   );
 }
 
-export default App;
+export default React.memo(App, deepEqual);

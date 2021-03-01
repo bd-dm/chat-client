@@ -2,6 +2,8 @@ import React from 'react';
 
 import Image from 'next/image';
 
+import deepEqual from 'deep-equal';
+
 import { IChatMessageAttachmentProps } from '@definitions/ui';
 
 import { styleImport } from '@lib/utils/style';
@@ -13,7 +15,7 @@ const styles = styleImport(stylesFile);
 const imgWidth = 200;
 const imgHeight = 200;
 
-export default function ChatMessageAttachmentImage(props: IChatMessageAttachmentProps) {
+function ChatMessageAttachmentImage(props: IChatMessageAttachmentProps) {
   const { attachment } = props;
 
   return (
@@ -31,3 +33,5 @@ export default function ChatMessageAttachmentImage(props: IChatMessageAttachment
     </div>
   );
 }
+
+export default React.memo(ChatMessageAttachmentImage, deepEqual);

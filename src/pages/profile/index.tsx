@@ -1,5 +1,7 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import UserQueries from '@api/graphql/UserQueries';
 
 import { Query } from '@definitions/graphql';
@@ -9,7 +11,7 @@ import useAuth from '@lib/hooks/useAuth';
 
 import { useQuery } from '@apollo/client';
 
-export default function ProfilePage() {
+function ProfilePage() {
   useAuth({
     allowedStates: [IUserAuthState.LOGGED_IN],
   });
@@ -33,3 +35,5 @@ export default function ProfilePage() {
     </div>
   );
 }
+
+export default React.memo(ProfilePage, deepEqual);

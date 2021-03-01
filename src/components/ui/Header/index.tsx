@@ -1,5 +1,7 @@
 import React, { useCallback } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import AuthWrapper from '@components/common/AuthWrapper';
 import HeaderMenuItem from '@components/ui/HeaderMenuItem';
 
@@ -11,7 +13,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function Header() {
+function Header() {
   const onLogoutPress = useCallback(() => {
     User.logout().then();
   }, []);
@@ -45,3 +47,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default React.memo(Header, deepEqual);

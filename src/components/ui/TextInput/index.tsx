@@ -1,8 +1,10 @@
 import React, { FormEvent, KeyboardEvent } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { ITextInputProps } from '@definitions/ui';
 
-export default function TextInput(props: ITextInputProps) {
+function TextInput(props: ITextInputProps) {
   const onChange = (e: FormEvent<HTMLInputElement>) => {
     if (props.onValueChange) {
       props.onValueChange(e.currentTarget.value);
@@ -28,3 +30,5 @@ export default function TextInput(props: ITextInputProps) {
     </>
   );
 }
+
+export default React.memo(TextInput, deepEqual);

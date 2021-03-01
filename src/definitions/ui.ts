@@ -53,8 +53,12 @@ export interface IChatRoomCardProps {
   isActive?: boolean;
 }
 
-export interface IChatMessagesProps {
+export interface IChatRoomProps {
   chatRoomId: string;
+}
+
+export interface IChatMessagesProps {
+  messages: ChatMessage[];
 }
 
 export interface IChatMessageAttachment {

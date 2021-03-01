@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import Button from '@components/ui/Button';
 
 import { IButtonFileInputProps } from '@definitions/ui';
@@ -10,7 +12,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function ButtonFileInput(props: IButtonFileInputProps) {
+function ButtonFileInput(props: IButtonFileInputProps) {
   const {
     children,
     onFilesChange,
@@ -51,3 +53,5 @@ export default function ButtonFileInput(props: IButtonFileInputProps) {
     </div>
   );
 }
+
+export default React.memo(ButtonFileInput, deepEqual);

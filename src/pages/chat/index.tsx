@@ -2,10 +2,12 @@ import React, { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
+import deepEqual from 'deep-equal';
+
 import UserQueries from '@api/graphql/UserQueries';
 
-import { ChatRoom } from '@components/ui/ChatRoom';
-import { ChatRoomCard } from '@components/ui/ChatRoomCard';
+import ChatRoom from '@components/ui/ChatRoom';
+import ChatRoomCard from '@components/ui/ChatRoomCard';
 
 import { ChatMessage, ChatRoom as ChatRoomType, Query } from '@definitions/graphql';
 import { IChatPageQuery } from '@definitions/pages';
@@ -28,7 +30,7 @@ import { useQuery } from '@apollo/client';
 
 const styles = styleImport(stylesFile);
 
-export default function ChatPage() {
+function ChatPage() {
   useAuth({
     allowedStates: [IUserAuthState.LOGGED_IN],
   });
@@ -116,3 +118,5 @@ export default function ChatPage() {
     </div>
   );
 }
+
+export default React.memo(ChatPage, deepEqual);

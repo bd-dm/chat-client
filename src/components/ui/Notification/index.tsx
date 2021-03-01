@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { INotificationProps } from '@definitions/ui';
 
 import { stripChars } from '@lib/utils/strings';
@@ -9,7 +11,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function Notification(props: INotificationProps) {
+function Notification(props: INotificationProps) {
   const [height, setHeight] = useState(0);
 
   const {
@@ -53,3 +55,5 @@ export default function Notification(props: INotificationProps) {
     </div>
   );
 }
+
+export default React.memo(Notification, deepEqual);

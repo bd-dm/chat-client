@@ -2,6 +2,8 @@ import React from 'react';
 
 import Link from 'next/link';
 
+import deepEqual from 'deep-equal';
+
 import { IHeaderMenuItemProps } from '@definitions/ui';
 
 import { styleImport } from '@lib/utils/style';
@@ -10,7 +12,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function HeaderMenuItem(props: IHeaderMenuItemProps) {
+function HeaderMenuItem(props: IHeaderMenuItemProps) {
   const renderMenuItem = () => (
     <div
       className={styles('menu-item')}
@@ -38,3 +40,5 @@ export default function HeaderMenuItem(props: IHeaderMenuItemProps) {
 
   return renderMenuItem();
 }
+
+export default React.memo(HeaderMenuItem, deepEqual);

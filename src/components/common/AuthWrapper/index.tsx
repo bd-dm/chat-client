@@ -1,10 +1,12 @@
 import React from 'react';
 
+import deepEqual from 'deep-equal';
+
 import { IAuthWrapperProps } from '@definitions/common';
 
 import useAuth from '@lib/hooks/useAuth';
 
-export default function AuthWrapper(props: IAuthWrapperProps) {
+function AuthWrapper(props: IAuthWrapperProps) {
   const {
     isForAuth = true,
   } = props;
@@ -21,3 +23,5 @@ export default function AuthWrapper(props: IAuthWrapperProps) {
     </>
   );
 }
+
+export default React.memo(AuthWrapper, deepEqual);

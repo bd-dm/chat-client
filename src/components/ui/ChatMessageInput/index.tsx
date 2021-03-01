@@ -1,8 +1,10 @@
 import React, { KeyboardEvent, useMemo } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import Button from '@components/ui/Button';
 import ButtonFileInput from '@components/ui/ButtonFileInput';
-import { ChatMessageInputAttachment } from '@components/ui/ChatMessageInputAttachment';
+import ChatMessageInputAttachment from '@components/ui/ChatMessageInputAttachment';
 import TextArea from '@components/ui/TextArea';
 
 import { ITextInputChatMessageProps } from '@definitions/ui';
@@ -13,7 +15,7 @@ import stylesFile from './index.module.scss';
 
 const styles = styleImport(stylesFile);
 
-export default function ChatMessageInput(props: ITextInputChatMessageProps) {
+function ChatMessageInput(props: ITextInputChatMessageProps) {
   const {
     attachments,
     text,
@@ -98,3 +100,5 @@ export default function ChatMessageInput(props: ITextInputChatMessageProps) {
     </div>
   );
 }
+
+export default React.memo(ChatMessageInput, deepEqual);

@@ -3,11 +3,13 @@ import React, {
   useState,
 } from 'react';
 
+import deepEqual from 'deep-equal';
+
 import UserQueries from '@api/graphql/UserQueries';
 
 import Button from '@components/ui/Button';
-import { ChatMessage } from '@components/ui/ChatMessage';
 import ChatMessageInput from '@components/ui/ChatMessageInput';
+import ChatMessages from '@components/ui/ChatMessages';
 
 import {
   ChatMessageSendInput,
@@ -15,7 +17,7 @@ import {
   MutationChatMessageSendArgs,
   Query,
 } from '@definitions/graphql';
-import { IChatMessageAttachment, IChatMessagesProps } from '@definitions/ui';
+import { IChatMessageAttachment, IChatRoomProps } from '@definitions/ui';
 
 import apolloClient from '@lib/classes/ApiClient';
 import { filePutToUri } from '@lib/utils/files';
@@ -29,7 +31,7 @@ import { useMutation, useQuery } from '@apollo/client';
 
 const styles = styleImport(stylesFile);
 
-export function ChatRoom(props: IChatMessagesProps) {
+function ChatRoom(props: IChatRoomProps) {
   const [messagesRef, setMessagesRef] = useState<HTMLDivElement | null>(null);
   const [isMoreLoading, setIsMoreLoading] = useState(false);
   const [messageText, setMessageText] = useState('');
@@ -80,7 +82,7 @@ export function ChatRoom(props: IChatMessagesProps) {
     }
   }, [messages.length]);
 
-  const loadMore = async () => {
+  const loadMore = useCallback(async () => {
     setIsMoreLoading(true);
     const items: any = await fetchMore({
       variables: UserQueries.chatMessageList.variables({
@@ -106,13 +108,13 @@ export function ChatRoom(props: IChatMessagesProps) {
       );
     }
     setIsMoreLoading(false);
-  };
+  }, [props.chatRoomId, messages.length]);
 
-  const resetScroll = () => {
+  const resetScroll = useCallback(() => {
     if (messagesRef) {
       messagesRef.scrollTop = messagesRef.scrollHeight;
     }
-  };
+  }, []);
 
   useEffect(() => {
     setIsMoreLoading(false);
@@ -120,28 +122,19 @@ export function ChatRoom(props: IChatMessagesProps) {
     resetScroll();
   }, [props.chatRoomId]);
 
-  if (error) {
-    console.error(error);
-    return <p>Ошибка!</p>;
-  }
-
-  if (isLoading) {
-    return <p>Загрузка...</p>;
-  }
-
-  const setAttachmentProgress = (idx: number, progress: number) => {
+  const setAttachmentProgress = useCallback((idx: number, progress: number) => {
     setAttachments(
       (prev) => prev.map(
         (el, id) => (idx === id ? { ...el, progress } : el),
       ),
     );
-  };
+  }, []);
 
-  const uploadAttachments = async (): Promise<(string | boolean)[] | boolean> => {
+  const uploadAttachments = useCallback(async (): Promise<(string | boolean)[] | boolean> => {
     const uploadUris = await apolloClient.query<Pick<Query, 'chatMessageGetAttachmentUploadUris'>>({
       query: UserQueries.chatMessageGetAttachmentUploadUris.query,
       variables: UserQueries.chatMessageGetAttachmentUploadUris.variables({
-        count: attachments.length,
+        count: attachmentFiles.length,
       }),
       fetchPolicy: 'no-cache',
     });
@@ -151,7 +144,7 @@ export function ChatRoom(props: IChatMessagesProps) {
     }
 
     const filePutPromises = [];
-    for (let i = 0; i < attachments.length; i++) {
+    for (let i = 0; i < attachmentFiles.length; i++) {
       filePutPromises.push(
         filePutToUri(
           uploadUris.data.chatMessageGetAttachmentUploadUris[i],
@@ -162,9 +155,9 @@ export function ChatRoom(props: IChatMessagesProps) {
     }
 
     return Promise.all(filePutPromises);
-  };
+  }, [attachmentFiles]);
 
-  const sendMessage = async () => {
+  const sendMessage = useCallback(async () => {
     if (!messageText) {
       return;
     }
@@ -189,15 +182,24 @@ export function ChatRoom(props: IChatMessagesProps) {
 
     setAttachments([]);
     setMessageText('');
-  };
+  }, [messageText, props.chatRoomId, attachments]);
 
-  const onAttachmentsChange = (files: File[]) => {
+  const onAttachmentsChange = useCallback((files: File[]) => {
     setAttachments(files.map((file) => ({ file, progress: 0 })));
-  };
+  }, []);
 
-  const onMessageTextChange = (text: string) => {
+  const onMessageTextChange = useCallback((text: string) => {
     setMessageText(text);
-  };
+  }, []);
+
+  if (error) {
+    console.error(error);
+    return <p>Ошибка!</p>;
+  }
+
+  if (isLoading) {
+    return <p>Загрузка...</p>;
+  }
 
   return (
     <div className={styles('container')}>
@@ -210,18 +212,7 @@ export function ChatRoom(props: IChatMessagesProps) {
           </div>
         )}
         <div className={styles('messages')}>
-          {!messages.length
-            ? (
-              <div className={styles('empty')}>
-                No messages yet ☹️
-              </div>
-            )
-            : messages.map((chatMessage) => (
-              <ChatMessage
-                key={chatMessage.id}
-                message={chatMessage}
-              />
-            ))}
+          <ChatMessages messages={messages} />
         </div>
       </div>
       <div>
@@ -237,3 +228,5 @@ export function ChatRoom(props: IChatMessagesProps) {
     </div>
   );
 }
+
+export default React.memo(ChatRoom, deepEqual);
