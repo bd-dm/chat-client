@@ -40,7 +40,6 @@ function ButtonFileInput(props: IButtonFileInputProps) {
   return (
     <div className={styles('container')}>
       <input
-        accept="image/*"
         className={styles('files-input')}
         ref={inputRef}
         type="file"

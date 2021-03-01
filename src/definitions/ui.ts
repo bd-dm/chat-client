@@ -71,6 +71,7 @@ export interface IChatMessageProps {
 }
 
 export interface IChatMessageAttachmentProps {
+  attachments: FileUri[];
   attachment: FileUri;
   onPress?: () => void;
 }

@@ -20,7 +20,7 @@ import {
 import { IChatMessageAttachment, IChatRoomProps } from '@definitions/ui';
 
 import apolloClient from '@lib/classes/ApiClient';
-import { filePutToUri } from '@lib/utils/files';
+import { fileExtractName, filePutToUri } from '@lib/utils/files';
 import { styleImport } from '@lib/utils/style';
 
 import ChatMessageModel from '@models/ChatMessageModel';
@@ -128,7 +128,7 @@ function ChatRoom(props: IChatRoomProps) {
     const uploadUris = await apolloClient.query<Pick<Query, 'chatMessageGetAttachmentUploadUris'>>({
       query: UserQueries.chatMessageGetAttachmentUploadUris.query,
       variables: UserQueries.chatMessageGetAttachmentUploadUris.variables({
-        count: attachmentFiles.length,
+        names: attachmentFiles.map((file) => fileExtractName(file.name)),
       }),
       fetchPolicy: 'no-cache',
     });
@@ -139,10 +139,19 @@ function ChatRoom(props: IChatRoomProps) {
 
     const filePutPromises = [];
     for (let i = 0; i < attachmentFiles.length; i++) {
+      const uri = uploadUris.data.chatMessageGetAttachmentUploadUris[i];
+      const file = attachmentFiles.find(
+        (el) => fileExtractName(el.name) === uri.name,
+      );
+
+      if (!file) {
+        continue;
+      }
+
       filePutPromises.push(
         filePutToUri(
-          uploadUris.data.chatMessageGetAttachmentUploadUris[i],
-          attachmentFiles[i],
+          uri,
+          file,
           (progress) => setAttachmentProgress(i, progress),
         ),
       );

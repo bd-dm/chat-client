@@ -64,6 +64,7 @@ export default {
             attachments {
               id
               uri
+              name
               mime
             }
           }
@@ -99,6 +100,7 @@ export default {
       query ChatMessageGetAttachmentUploadUris($data: ChatMessageGetAttachmentUploadUrisInput!) {
         chatMessageGetAttachmentUploadUris(data: $data) {
           id
+          name
           uri
         }
       }

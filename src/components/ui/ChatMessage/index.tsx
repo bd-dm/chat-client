@@ -6,12 +6,9 @@ import deepEqual from 'deep-equal';
 import moment from 'moment';
 
 import ChatMessageAttachment from '@components/ui/ChatMessageAttachment';
-import ChatMessageAttachmentModal from '@components/ui/ChatMessageAttachmentModal';
 
-import { FileUri } from '@definitions/graphql';
 import { IChatMessageProps } from '@definitions/ui';
 
-import useModal from '@lib/hooks/useModal';
 import { styleImport } from '@lib/utils/style';
 
 import stylesFile from './index.module.scss';
@@ -20,19 +17,6 @@ const styles = styleImport(stylesFile);
 
 function ChatMessage(props: IChatMessageProps) {
   const { message } = props;
-  const [openModal, closeModal] = useModal();
-
-  const onAttachmentPress = (attachment: FileUri) => () => {
-    openModal({
-      content: (
-        <ChatMessageAttachmentModal
-          attachments={message.attachments}
-          current={attachment}
-          onClosePress={closeModal}
-        />
-      ),
-    });
-  };
 
   return (
     <div className={styles('container')}>
@@ -65,8 +49,8 @@ function ChatMessage(props: IChatMessageProps) {
             {message.attachments.map((attachment) => (
               <ChatMessageAttachment
                 attachment={attachment}
+                attachments={message.attachments}
                 key={attachment.id}
-                onPress={onAttachmentPress(attachment)}
               />
             ))}
           </div>

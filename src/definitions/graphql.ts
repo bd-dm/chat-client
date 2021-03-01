@@ -59,12 +59,13 @@ export type User = {
 export type FileUri = {
   __typename?: 'FileUri';
   id: Scalars['String'];
+  name: Scalars['String'];
   uri: Scalars['String'];
   mime?: Maybe<Scalars['String']>;
 };
 
 export type ChatMessageGetAttachmentUploadUrisInput = {
-  count: Scalars['Float'];
+  names: Array<Scalars['String']>;
 };
 
 export type ChatMessagePaginated = {

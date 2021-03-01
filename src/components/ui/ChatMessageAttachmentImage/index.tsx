@@ -1,11 +1,14 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 
 import Image from 'next/image';
 
 import deepEqual from 'deep-equal';
 
+import ChatMessageAttachmentModal from '@components/ui/ChatMessageAttachmentModal';
+
 import { IChatMessageAttachmentProps } from '@definitions/ui';
 
+import useModal from '@lib/hooks/useModal';
 import { styleImport } from '@lib/utils/style';
 
 import stylesFile from './index.module.scss';
@@ -13,10 +16,31 @@ import stylesFile from './index.module.scss';
 const styles = styleImport(stylesFile);
 
 function ChatMessageAttachmentImage(props: IChatMessageAttachmentProps) {
-  const { attachment } = props;
+  const { attachments, attachment } = props;
+  const [openModal, closeModal] = useModal();
+
+  const onImagePress = useCallback(() => {
+    openModal({
+      content: (
+        <ChatMessageAttachmentModal
+          attachments={attachments}
+          current={attachment}
+          onClosePress={closeModal}
+        />
+      ),
+    });
+  }, [attachment.id]);
 
   return (
-    <div className={styles('container')} onClick={props.onPress}>
+    <div
+      className={styles('container')}
+      onClick={() => {
+        onImagePress();
+        if (props.onPress) {
+          props.onPress();
+        }
+      }}
+    >
       <div className={styles('image')}>
         <Image
           alt="attachment"

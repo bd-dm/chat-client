@@ -1,0 +1,46 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 10px;
+}
+
+.file {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 200px;
+}
+
+.name {
+  color: #000;
+  padding: 10px;
+}
+
+.remove {
+  background-color: #000a;
+  color: #fff;
+  cursor: pointer;
+  padding: 3px 6px;
+  text-decoration: none;
+
+  transition: background-color 400ms;
+}
+
+.remove:hover {
+  background-color: #000;
+}
+
+.progress {
+  height: 7px;
+  width: 100%;
+}
+
+.progress--active {
+  background-color: #aaa;
+}
+
+.progress-filled {
+  background-color: #000;
+  height: 100%;
+}

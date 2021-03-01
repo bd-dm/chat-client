@@ -25,6 +25,7 @@ module.exports = {
         ],
         'no-alert': 0,
         'no-console': 0,
+        'no-continue': 0,
         'no-restricted-globals': 0,
         'no-restricted-syntax': 0,
         'no-undef': 0,

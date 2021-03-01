@@ -2,6 +2,7 @@ import React from 'react';
 
 import deepEqual from 'deep-equal';
 
+import ChatMessageInputAttachmentDefault from '@components/ui/ChatMessageInputAttachmentDefault';
 import ChatMessageInputAttachmentImage from '@components/ui/ChatMessageInputAttachmentImage';
 
 import { IChatMessageInputAttachmentProps } from '@definitions/ui';
@@ -16,7 +17,10 @@ function ChatMessageInputAttachment(props: IChatMessageInputAttachmentProps) {
       return (
         <ChatMessageInputAttachmentImage {...props} />
       );
-    default: return null;
+    default:
+      return (
+        <ChatMessageInputAttachmentDefault {...props} />
+      );
   }
 }
 

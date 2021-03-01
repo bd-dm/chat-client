@@ -1,6 +1,9 @@
 import axios from 'axios';
+import jsFileDownload from 'js-file-download';
 
 import { FileUri } from '@definitions/graphql';
+
+import { getExtension, removeExtension, sliceWithDots } from '@lib/utils/strings';
 
 export const fileGetReader = (
   onCompleted: (result: FileReader['result']) => void,
@@ -72,4 +75,44 @@ export const filePutToUri = async (
   }
 
   return fileUri.id;
+};
+
+export const fileDownload = async (uri: string, name: string) => {
+  const res = await axios.get(uri, {
+    responseType: 'blob',
+  });
+
+  jsFileDownload(res.data, name);
+};
+
+export const fileExtractName = (str: string): string => {
+  const origLength = str.length;
+  const ext = getExtension(str);
+  let slicedName = removeExtension(str).slice(0, 255);
+
+  const slicedLength = slicedName.length;
+  if (slicedLength < origLength) {
+    slicedName = `${slicedName.slice(0, 255 - ext.length - 1)}.${ext}`;
+  }
+
+  return slicedName;
+};
+
+export const filePrintName = (name: string, length: number = 30): string => {
+  const origLength = name.length;
+  const ext = getExtension(name);
+  const extLength = ext.length;
+
+  let slicedName = sliceWithDots(name, length);
+  const slicedLength = name.slice(0, length).length;
+
+  if (slicedLength < origLength) {
+    const slicedCount = origLength - slicedLength;
+    if (slicedCount < extLength) {
+      slicedName = slicedName.slice(0, -1 * (extLength - slicedCount - 1));
+    }
+    slicedName = `${slicedName}.${ext}`;
+  }
+
+  return slicedName;
 };
