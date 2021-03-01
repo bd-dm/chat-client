@@ -1,5 +1,5 @@
 import React, {
-  useCallback, useEffect, useMemo,
+  useCallback, useEffect, useMemo, useRef,
   useState,
 } from 'react';
 
@@ -37,6 +37,8 @@ function ChatRoom(props: IChatRoomProps) {
   const [messageText, setMessageText] = useState('');
   const [attachments, setAttachments] = useState<IChatMessageAttachment[]>([]);
 
+  const isScrolled = useRef(false);
+
   const attachmentFiles = useMemo(() => attachments.map((el) => el.file), [attachments]);
 
   const {
@@ -67,6 +69,26 @@ function ChatRoom(props: IChatRoomProps) {
     [data?.chatMessageList.pageMeta],
   );
 
+  const onMessagesScroll = () => {
+    if (messagesRef) {
+      const maxScroll = messagesRef.scrollHeight - messagesRef.clientHeight;
+      const currentScroll = -messagesRef.scrollTop;
+      const scrollLeft = maxScroll - currentScroll;
+
+      if (scrollLeft < 100 && !isScrolled.current) {
+        isScrolled.current = true;
+
+        loadMore().then();
+      }
+    }
+  };
+
+  useEffect(() => {
+    messagesRef?.addEventListener('scroll', onMessagesScroll);
+
+    return () => messagesRef?.removeEventListener('scroll', onMessagesScroll);
+  }, [messagesRef]);
+
   const onMessagesRef = useCallback((node) => {
     if (node !== null) {
       // eslint-disable-next-line no-param-reassign
@@ -77,6 +99,10 @@ function ChatRoom(props: IChatRoomProps) {
   }, []);
 
   const loadMore = useCallback(async () => {
+    if (!data?.chatMessageList.pageMeta.hasMore) {
+      return;
+    }
+
     setIsMoreLoading(true);
     const items: any = await fetchMore({
       variables: UserQueries.chatMessageList.variables({
