@@ -40,7 +40,12 @@ function ChatMessage(props: IChatMessageProps) {
           {message.text}
         </div>
         {message.attachments.length > 0 && (
-          <div className={styles('attachments')}>
+          <div
+            className={styles('attachments')}
+            style={message.attachments.length === 1 ? {
+              maxWidth: 260,
+            } : {}}
+          >
             {message.attachments.map((attachment) => (
               <ChatMessageAttachment
                 attachment={attachment}

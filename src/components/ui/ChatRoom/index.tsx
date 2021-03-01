@@ -114,7 +114,7 @@ function ChatRoom(props: IChatRoomProps) {
     if (messagesRef) {
       messagesRef.scrollTop = messagesRef.scrollHeight;
     }
-  }, []);
+  }, [messagesRef]);
 
   useEffect(() => {
     setIsMoreLoading(false);
@@ -182,10 +182,12 @@ function ChatRoom(props: IChatRoomProps) {
 
     setAttachments([]);
     setMessageText('');
+    resetScroll();
   }, [messageText, props.chatRoomId, attachments]);
 
   const onAttachmentsChange = useCallback((files: File[]) => {
     setAttachments(files.map((file) => ({ file, progress: 0 })));
+    resetScroll();
   }, []);
 
   const onMessageTextChange = useCallback((text: string) => {
