@@ -2,6 +2,8 @@ import { ReactNode } from 'react';
 
 import { Socket } from 'socket.io-client/build/socket';
 
+// Socket context
+
 export interface IContextProviderProps {
   children: ReactNode | ReactNode[];
 }
@@ -15,6 +17,8 @@ export interface ISocketContextValue {
 
 export interface ISocketContextProviderProps extends IContextProviderProps{
 }
+
+// Notification context
 
 export interface INotification {
   title: string;
@@ -30,4 +34,19 @@ export interface INotificationContextValue {
 }
 
 export interface INotificationContextProviderProps extends IContextProviderProps{
+}
+
+// Modal context
+
+export interface IModalContextValue {
+  modalOptions: IModalOptions;
+  setOptions: (options: IModalOptions) => void;
+}
+
+export interface IModalContextProviderProps extends IContextProviderProps{
+}
+
+export interface IModalOptions {
+  content: ReactNode;
+  isActive?: boolean;
 }

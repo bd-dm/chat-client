@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
-import { INotification } from '@definitions/context';
+import { IModalOptions, INotification } from '@definitions/context';
 import { ChatMessage, FileUri } from '@definitions/graphql';
 
 export interface ITextInputProps{
@@ -72,6 +72,7 @@ export interface IChatMessageProps {
 
 export interface IChatMessageAttachmentProps {
   attachment: FileUri;
+  onPress?: () => void;
 }
 
 export interface IChatMessageInputAttachmentProps {
@@ -87,4 +88,17 @@ export interface IHeaderMenuItemProps {
 
 export interface INotificationProps {
   notification: INotification;
+}
+
+export interface IModalProps {
+  options: IModalOptions;
+}
+
+export interface IModalCommonProps {
+  onClosePress?: () => void;
+}
+
+export interface IChatMessageAttachmentModalProps extends IModalCommonProps{
+  attachments: FileUri[];
+  current: FileUri;
 }

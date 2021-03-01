@@ -76,12 +76,6 @@ function ChatRoom(props: IChatRoomProps) {
     setMessagesRef(node);
   }, []);
 
-  useEffect(() => {
-    if (messagesRef) {
-      resetScroll();
-    }
-  }, [messages.length]);
-
   const loadMore = useCallback(async () => {
     setIsMoreLoading(true);
     const items: any = await fetchMore({
@@ -187,7 +181,6 @@ function ChatRoom(props: IChatRoomProps) {
 
   const onAttachmentsChange = useCallback((files: File[]) => {
     setAttachments(files.map((file) => ({ file, progress: 0 })));
-    resetScroll();
   }, []);
 
   const onMessageTextChange = useCallback((text: string) => {
@@ -206,6 +199,9 @@ function ChatRoom(props: IChatRoomProps) {
   return (
     <div className={styles('container')}>
       <div className={styles('messages-scroll')} ref={onMessagesRef}>
+        <div className={styles('messages')}>
+          <ChatMessages messages={messages} />
+        </div>
         {pageMeta?.hasMore && (
           <div className={styles('load-more-button')}>
             <Button isLoading={isMoreLoading} isFullWidth onPress={loadMore}>
@@ -213,9 +209,6 @@ function ChatRoom(props: IChatRoomProps) {
             </Button>
           </div>
         )}
-        <div className={styles('messages')}>
-          <ChatMessages messages={messages} />
-        </div>
       </div>
       <div>
         <ChatMessageInput

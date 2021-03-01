@@ -5,7 +5,9 @@
 }
 
 .messages-scroll {
+  display: flex;
   flex: 1;
+  flex-direction: column-reverse;
   height: calc(100% - 100px);
   overflow-y: scroll;
 }

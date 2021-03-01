@@ -16,7 +16,7 @@ function ChatMessageAttachmentImage(props: IChatMessageAttachmentProps) {
   const { attachment } = props;
 
   return (
-    <div className={styles('container')}>
+    <div className={styles('container')} onClick={props.onPress}>
       <div className={styles('image')}>
         <Image
           alt="attachment"

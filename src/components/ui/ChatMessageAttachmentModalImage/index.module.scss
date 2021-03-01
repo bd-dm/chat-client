@@ -1,0 +1,60 @@
+.container {
+  background-color: #000d;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 40px;
+  width: 100%;
+}
+
+.close-button {
+  align-items: center;
+  background-color: #000;
+  color: #aaa;
+  cursor: pointer;
+  display: flex;
+  font-size: 20px;
+  height: 60px;
+  justify-content: center;
+  position: absolute;
+  right: 0;
+  text-decoration: none;
+  top: 0;
+
+  transition: opacity 300ms;
+  width: 60px;
+}
+
+.close-button:hover {
+  opacity: 0.7;
+}
+
+.image {
+  flex: 1;
+  position: relative;
+}
+
+.roll {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  height: 200px;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.roll-item {
+  border-radius: 15px;
+  cursor: pointer;
+  height: 100%;
+  margin: 0 15px;
+  overflow: hidden;
+  position: relative;
+
+  transition: opacity 300ms;
+  width: 200px;
+}
+
+.roll-item:hover {
+  opacity: 0.7;
+}
