@@ -70,6 +70,10 @@ export interface IChatMessageProps {
   message: ChatMessage;
 }
 
+export interface IChatMessageAttachmentsProps {
+  attachments: FileUri[];
+}
+
 export interface IChatMessageAttachmentProps {
   attachments: FileUri[];
   attachment: FileUri;

@@ -5,7 +5,7 @@ import Image from 'next/image';
 import deepEqual from 'deep-equal';
 import moment from 'moment';
 
-import ChatMessageAttachment from '@components/ui/ChatMessageAttachment';
+import ChatMessageAttachments from '@components/ui/ChatMessageAttachments';
 
 import { IChatMessageProps } from '@definitions/ui';
 
@@ -39,24 +39,7 @@ function ChatMessage(props: IChatMessageProps) {
         <div className={styles('text')}>
           {message.text}
         </div>
-        {message.attachments.length > 0 && (
-          <div
-            className={styles('attachments')}
-            style={message.attachments.length === 1 ? {
-              maxWidth: 260,
-            } : {}}
-          >
-            {message.attachments.map((attachment) => (
-              <>
-                <ChatMessageAttachment
-                  attachment={attachment}
-                  attachments={message.attachments}
-                  key={attachment.id}
-                />
-              </>
-            ))}
-          </div>
-        )}
+        <ChatMessageAttachments attachments={message.attachments} />
       </div>
     </div>
   );
