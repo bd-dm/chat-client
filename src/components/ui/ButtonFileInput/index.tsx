@@ -38,7 +38,10 @@ function ButtonFileInput(props: IButtonFileInputProps) {
   };
 
   return (
-    <div className={styles('container')}>
+    <div
+      className={styles('container')}
+      id={props.id}
+    >
       <input
         className={styles('files-input')}
         ref={inputRef}
@@ -46,7 +49,10 @@ function ButtonFileInput(props: IButtonFileInputProps) {
         multiple
         onChange={onFileInputChange}
       />
-      <Button {...props.buttonProps} onPress={onButtonPress}>
+      <Button
+        {...props.buttonProps}
+        onPress={onButtonPress}
+      >
         {children}
       </Button>
     </div>

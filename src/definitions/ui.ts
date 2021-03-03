@@ -45,7 +45,7 @@ export interface IButtonProps extends IComponentProps {
   isFullWidth?: boolean;
 }
 
-export interface IButtonFileInputProps{
+export interface IButtonFileInputProps extends IComponentProps {
   children: ReactNode;
   buttonProps?: IButtonProps;
   onFilesChange?: (files: File[]) => void;

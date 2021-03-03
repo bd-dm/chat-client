@@ -4,6 +4,7 @@ import {
   cleanup,
   fireEvent,
   render,
+  screen,
 } from '@testing-library/react';
 
 import Button from '@/components/ui/Button';
@@ -24,7 +25,7 @@ describe('Button', () => {
         onPress={handlePress}
         {...props}
       >
-        Button title
+        {props?.children || 'Button title'}
       </Button>,
     );
     buttonElement = dom.container.querySelector(`#${buttonId}`) as Element;
@@ -37,6 +38,19 @@ describe('Button', () => {
   it('Renders component', () => {
     renderButton();
     expect(buttonElement).toBeInTheDocument();
+  });
+
+  it('Renders children as a component', () => {
+    const childId = 'child-component';
+    renderButton({
+      children: (
+        <div data-testid={childId}>
+          Child test
+        </div>
+      ),
+    });
+
+    expect(screen.getByTestId(childId)).toBeInTheDocument();
   });
 
   it('Handles click', () => {
