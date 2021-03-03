@@ -1,7 +1,11 @@
-import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
+import { InputHTMLAttributes, ReactNode } from 'react';
 
 import { IModalOptions, INotification } from '@/definitions/context';
 import { ChatMessage, FileUri } from '@/definitions/graphql';
+
+export interface IComponentProps {
+  id?: string;
+}
 
 export interface ITextInputProps{
   onValueChange?: (text: string) => void;
@@ -34,7 +38,7 @@ export interface IFormRowProps {
   children: ReactNode;
 }
 
-export interface IButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>{
+export interface IButtonProps extends IComponentProps {
   children: ReactNode;
   isLoading?: boolean;
   onPress?: () => void;

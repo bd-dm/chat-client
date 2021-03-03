@@ -25,7 +25,11 @@ function Button(props: IButtonProps) {
   }
 
   return (
-    <button className={styles(...styleList)} onClick={onPress}>
+    <button
+      className={styles(...styleList)}
+      id={props.id}
+      onClick={onPress}
+    >
       {isLoading ? 'Загрузка...' : children}
     </button>
   );
