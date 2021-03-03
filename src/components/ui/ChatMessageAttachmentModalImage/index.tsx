@@ -4,14 +4,14 @@ import Image from 'next/image';
 
 import deepEqual from 'deep-equal';
 
-import { IChatMessageAttachmentModalProps } from '@definitions/ui';
+import { IChatMessageAttachmentModalProps } from '@/definitions/ui';
 
-import { getAttachmentType } from '@lib/utils/attachments';
-import { styleImport } from '@lib/utils/style';
+import { getAttachmentType } from '@/lib/utils/attachments';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 
-import { ATTACHMENT_TYPE } from '@consts';
+import { ATTACHMENT_TYPE } from '@/consts';
 
 const styles = styleImport(stylesFile);
 

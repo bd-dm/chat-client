@@ -1,4 +1,4 @@
-import { User } from '@definitions/graphql';
+import { User } from '@/definitions/graphql';
 
 export enum IUserAuthState {
   GUEST,

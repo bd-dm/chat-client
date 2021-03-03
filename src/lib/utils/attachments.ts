@@ -1,4 +1,4 @@
-import { ATTACHMENT_TYPE, ATTACHMENT_TYPE_MIMES } from '@consts';
+import { ATTACHMENT_TYPE, ATTACHMENT_TYPE_MIMES } from '@/consts';
 
 export const getAttachmentType = (mime?: string | null): ATTACHMENT_TYPE => {
   if (!mime) {

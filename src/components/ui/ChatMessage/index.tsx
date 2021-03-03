@@ -5,11 +5,11 @@ import Image from 'next/image';
 import deepEqual from 'deep-equal';
 import moment from 'moment';
 
-import ChatMessageAttachments from '@components/ui/ChatMessageAttachments';
+import ChatMessageAttachments from '@/components/ui/ChatMessageAttachments';
 
-import { IChatMessageProps } from '@definitions/ui';
+import { IChatMessageProps } from '@/definitions/ui';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

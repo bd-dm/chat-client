@@ -9,6 +9,15 @@ module.exports = {
         'import/extensions': 0,
         'import/no-unresolved': 0,
         'import/prefer-default-export': 0,
+        'import/no-extraneous-dependencies': [
+            'error', {
+                'devDependencies': [
+                    '**/*.test.ts',
+                    '**/*.test.tsx',
+                    '**/*.spec.js'
+                ]
+            }
+        ],
         'jsx-a11y/alt-text': 0,
         'jsx-a11y/anchor-is-valid': 0,
         'jsx-a11y/click-events-have-key-events': 0,
@@ -55,13 +64,14 @@ module.exports = {
                     ['^react'],
                     ['^next'],
                     ['^\\w'],
-                    ['^@api\\/?\\w'],
-                    ['^@assets\\/?\\w'],
-                    ['^@components\\/?\\w'],
-                    ['^@definitions\\/?\\w'],
-                    ['^@lib\\/?\\w'],
-                    ['^@models\\/?\\w'],
-                    ['^@pages\\/?\\w'],
+                    ['^@\\w'],
+                    ['^@/api\\/?\\w'],
+                    ['^@/assets\\/?\\w'],
+                    ['^@/components\\/?\\w'],
+                    ['^@/definitions\\/?\\w'],
+                    ['^@/lib\\/?\\w'],
+                    ['^@/models\\/?\\w'],
+                    ['^@/pages\\/?\\w'],
                     ['^\\.'],
                     ['^[^.]'],
                 ],
@@ -71,7 +81,7 @@ module.exports = {
         'import/first': 'error',
         'import/newline-after-import': 'error',
         'import/no-duplicates': 'error',
-        'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1, maxBOF: 1 }],
+        'no-multiple-empty-lines': ['error', {max: 1, maxEOF: 1, maxBOF: 1}],
         'react/jsx-one-expression-per-line': 0,
     },
 };

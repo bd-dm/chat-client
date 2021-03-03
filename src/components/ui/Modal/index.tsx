@@ -2,9 +2,9 @@ import React from 'react';
 
 import deepEqual from 'deep-equal';
 
-import { IModalProps } from '@definitions/ui';
+import { IModalProps } from '@/definitions/ui';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

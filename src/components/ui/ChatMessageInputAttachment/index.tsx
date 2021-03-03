@@ -2,14 +2,14 @@ import React from 'react';
 
 import deepEqual from 'deep-equal';
 
-import ChatMessageInputAttachmentDefault from '@components/ui/ChatMessageInputAttachmentDefault';
-import ChatMessageInputAttachmentImage from '@components/ui/ChatMessageInputAttachmentImage';
+import ChatMessageInputAttachmentDefault from '@/components/ui/ChatMessageInputAttachmentDefault';
+import ChatMessageInputAttachmentImage from '@/components/ui/ChatMessageInputAttachmentImage';
 
-import { IChatMessageInputAttachmentProps } from '@definitions/ui';
+import { IChatMessageInputAttachmentProps } from '@/definitions/ui';
 
-import { getAttachmentType } from '@lib/utils/attachments';
+import { getAttachmentType } from '@/lib/utils/attachments';
 
-import { ATTACHMENT_TYPE } from '@consts';
+import { ATTACHMENT_TYPE } from '@/consts';
 
 function ChatMessageInputAttachment(props: IChatMessageInputAttachmentProps) {
   const { attachment } = props;

@@ -2,12 +2,12 @@ import React, { useCallback } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import AuthWrapper from '@components/common/AuthWrapper';
-import HeaderMenuItem from '@components/ui/HeaderMenuItem';
+import AuthWrapper from '@/components/common/AuthWrapper';
+import HeaderMenuItem from '@/components/ui/HeaderMenuItem';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
-import User from '@models/User';
+import User from '@/models/User';
 
 import stylesFile from './index.module.scss';
 

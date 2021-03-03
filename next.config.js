@@ -6,7 +6,7 @@ module.exports = {
     webpack: (config, {dev, isServer}) => {
         config.resolve.alias = {
             ...config.resolve.alias,
-            '@': path.resolve('./src'),
+            '@/': path.resolve('./src'),
         };
 
         if (dev && !isServer) {

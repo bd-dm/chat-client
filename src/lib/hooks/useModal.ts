@@ -1,8 +1,8 @@
 import { useContext } from 'react';
 
-import { ModalContext } from '@components/context/ModalContext';
+import { ModalContext } from '@/components/context/ModalContext';
 
-import { IModalContextValue, IModalOptions } from '@definitions/context';
+import { IModalContextValue, IModalOptions } from '@/definitions/context';
 
 const useModal = (): [IModalContextValue['setOptions'], () => void] => {
   const context = useContext(ModalContext);

@@ -3,14 +3,15 @@ import React, { useEffect, useState } from 'react';
 import deepEqual from 'deep-equal';
 import { io } from 'socket.io-client';
 
-import { ISocketContextProviderProps, ISocketContextSocket, ISocketContextValue } from '@definitions/context';
-
-import useAuth from '@lib/hooks/useAuth';
-
-import { userStore } from '@models/User';
-
 import { useReactiveVar } from '@apollo/client';
-import config from '@config';
+
+import { ISocketContextProviderProps, ISocketContextSocket, ISocketContextValue } from '@/definitions/context';
+
+import useAuth from '@/lib/hooks/useAuth';
+
+import { userStore } from '@/models/User';
+
+import config from '@/config';
 
 export const socketContextDefaultValue: ISocketContextValue = {
   socket: null,

@@ -2,7 +2,7 @@ import React, { FormEvent, KeyboardEvent } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import { ITextAreaProps } from '@definitions/ui';
+import { ITextAreaProps } from '@/definitions/ui';
 
 function TextArea(props: ITextAreaProps) {
   const onChange = (e: FormEvent<HTMLTextAreaElement>) => {

@@ -4,29 +4,29 @@ import { useRouter } from 'next/router';
 
 import deepEqual from 'deep-equal';
 
-import UserQueries from '@api/graphql/UserQueries';
+import { useQuery } from '@apollo/client';
 
-import ChatRoom from '@components/ui/ChatRoom';
-import ChatRoomCard from '@components/ui/ChatRoomCard';
+import UserQueries from '@/api/graphql/UserQueries';
 
-import { ChatMessage, ChatRoom as ChatRoomType, Query } from '@definitions/graphql';
-import { IChatPageQuery } from '@definitions/pages';
-import { ISocketEvents } from '@definitions/socket';
-import { IUserAuthState } from '@definitions/user';
+import ChatRoom from '@/components/ui/ChatRoom';
+import ChatRoomCard from '@/components/ui/ChatRoomCard';
 
-import apolloClient from '@lib/classes/ApiClient';
-import useAuth from '@lib/hooks/useAuth';
-import useNotifications from '@lib/hooks/useNotifications';
-import useSocket from '@lib/hooks/useSocket';
-import useUser from '@lib/hooks/useUser';
-import { styleImport } from '@lib/utils/style';
+import { ChatMessage, ChatRoom as ChatRoomType, Query } from '@/definitions/graphql';
+import { IChatPageQuery } from '@/definitions/pages';
+import { ISocketEvents } from '@/definitions/socket';
+import { IUserAuthState } from '@/definitions/user';
 
-import ChatMessageModel from '@models/ChatMessageModel';
-import ChatRoomModel from '@models/ChatRoomModel';
+import apolloClient from '@/lib/classes/ApiClient';
+import useAuth from '@/lib/hooks/useAuth';
+import useNotifications from '@/lib/hooks/useNotifications';
+import useSocket from '@/lib/hooks/useSocket';
+import useUser from '@/lib/hooks/useUser';
+import { styleImport } from '@/lib/utils/style';
+
+import ChatMessageModel from '@/models/ChatMessageModel';
+import ChatRoomModel from '@/models/ChatRoomModel';
 
 import stylesFile from './index.module.scss';
-
-import { useQuery } from '@apollo/client';
 
 const styles = styleImport(stylesFile);
 

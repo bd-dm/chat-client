@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes, InputHTMLAttributes, ReactNode } from 'react';
 
-import { IModalOptions, INotification } from '@definitions/context';
-import { ChatMessage, FileUri } from '@definitions/graphql';
+import { IModalOptions, INotification } from '@/definitions/context';
+import { ChatMessage, FileUri } from '@/definitions/graphql';
 
 export interface ITextInputProps{
   onValueChange?: (text: string) => void;

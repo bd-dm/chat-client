@@ -1,4 +1,4 @@
-import '@assets/styles/index.scss';
+import '@/assets/styles/index.scss';
 
 import React, { useEffect, useState } from 'react';
 
@@ -6,13 +6,14 @@ import { AppProps } from 'next/app';
 
 import deepEqual from 'deep-equal';
 
-import { SocketContextProvider } from '@components/context/SocketContext';
-import PageLayout from '@components/layout/PageLayout';
-
-import ApiClient from '@lib/classes/ApiClient';
-
 import { ApolloProvider } from '@apollo/client';
-import { persistStore } from '@models';
+
+import { SocketContextProvider } from '@/components/context/SocketContext';
+import PageLayout from '@/components/layout/PageLayout';
+
+import ApiClient from '@/lib/classes/ApiClient';
+
+import { persistStore } from '@/models';
 
 function App({ Component, pageProps }: AppProps) {
   const [isLoading, setIsLoading] = useState(true);

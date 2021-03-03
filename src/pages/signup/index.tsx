@@ -2,20 +2,20 @@ import React, { useState } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import UserQueries from '@api/graphql/UserQueries';
-
-import Button from '@components/ui/Button';
-import FormRow from '@components/ui/FormRow';
-import TextInput from '@components/ui/TextInput';
-
-import { Mutation, MutationUserSignupArgs } from '@definitions/graphql';
-import { IUserAuthState } from '@definitions/user';
-
-import useAuth from '@lib/hooks/useAuth';
-
-import User from '@models/User';
-
 import { useMutation } from '@apollo/client';
+
+import UserQueries from '@/api/graphql/UserQueries';
+
+import Button from '@/components/ui/Button';
+import FormRow from '@/components/ui/FormRow';
+import TextInput from '@/components/ui/TextInput';
+
+import { Mutation, MutationUserSignupArgs } from '@/definitions/graphql';
+import { IUserAuthState } from '@/definitions/user';
+
+import useAuth from '@/lib/hooks/useAuth';
+
+import User from '@/models/User';
 
 interface ISignupFormState {
   email: string;

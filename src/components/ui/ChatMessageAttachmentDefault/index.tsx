@@ -5,11 +5,11 @@ import Image from 'next/image';
 import deepEqual from 'deep-equal';
 import mime from 'mime-types';
 
-import { IChatMessageAttachmentProps } from '@definitions/ui';
+import { IChatMessageAttachmentProps } from '@/definitions/ui';
 
-import { fileDownload, filePrintName, isImageExists } from '@lib/utils/files';
-import { getExtension } from '@lib/utils/strings';
-import { styleImport } from '@lib/utils/style';
+import { fileDownload, filePrintName, isImageExists } from '@/lib/utils/files';
+import { getExtension } from '@/lib/utils/strings';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

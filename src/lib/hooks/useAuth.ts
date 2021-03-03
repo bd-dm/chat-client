@@ -2,11 +2,11 @@ import { useEffect } from 'react';
 
 import { useRouter } from 'next/router';
 
-import { IUserAuthState } from '@definitions/user';
-
-import User, { userStore } from '@models/User';
-
 import { useReactiveVar } from '@apollo/client';
+
+import { IUserAuthState } from '@/definitions/user';
+
+import User, { userStore } from '@/models/User';
 
 interface IUseAuthOptions {
   allowedStates: IUserAuthState[],

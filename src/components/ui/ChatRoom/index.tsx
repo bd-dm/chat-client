@@ -5,29 +5,29 @@ import React, {
 
 import deepEqual from 'deep-equal';
 
-import UserQueries from '@api/graphql/UserQueries';
+import { useMutation, useQuery } from '@apollo/client';
 
-import Button from '@components/ui/Button';
-import ChatMessageInput from '@components/ui/ChatMessageInput';
-import ChatMessages from '@components/ui/ChatMessages';
+import UserQueries from '@/api/graphql/UserQueries';
+
+import Button from '@/components/ui/Button';
+import ChatMessageInput from '@/components/ui/ChatMessageInput';
+import ChatMessages from '@/components/ui/ChatMessages';
 
 import {
   ChatMessageSendInput,
   Mutation,
   MutationChatMessageSendArgs,
   Query,
-} from '@definitions/graphql';
-import { IChatMessageAttachment, IChatRoomProps } from '@definitions/ui';
+} from '@/definitions/graphql';
+import { IChatMessageAttachment, IChatRoomProps } from '@/definitions/ui';
 
-import apolloClient from '@lib/classes/ApiClient';
-import { fileExtractName, filePutToUri } from '@lib/utils/files';
-import { styleImport } from '@lib/utils/style';
+import apolloClient from '@/lib/classes/ApiClient';
+import { fileExtractName, filePutToUri } from '@/lib/utils/files';
+import { styleImport } from '@/lib/utils/style';
 
-import ChatMessageModel from '@models/ChatMessageModel';
+import ChatMessageModel from '@/models/ChatMessageModel';
 
 import stylesFile from './index.module.scss';
-
-import { useMutation, useQuery } from '@apollo/client';
 
 const styles = styleImport(stylesFile);
 

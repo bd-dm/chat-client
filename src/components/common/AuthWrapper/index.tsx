@@ -2,9 +2,9 @@ import React from 'react';
 
 import deepEqual from 'deep-equal';
 
-import { IAuthWrapperProps } from '@definitions/common';
+import { IAuthWrapperProps } from '@/definitions/common';
 
-import useAuth from '@lib/hooks/useAuth';
+import useAuth from '@/lib/hooks/useAuth';
 
 function AuthWrapper(props: IAuthWrapperProps) {
   const {

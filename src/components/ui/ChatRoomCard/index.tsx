@@ -4,9 +4,9 @@ import Image from 'next/image';
 
 import deepEqual from 'deep-equal';
 
-import { IChatRoomCardProps } from '@definitions/ui';
+import { IChatRoomCardProps } from '@/definitions/ui';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

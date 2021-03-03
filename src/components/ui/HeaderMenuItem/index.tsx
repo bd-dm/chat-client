@@ -4,9 +4,9 @@ import Link from 'next/link';
 
 import deepEqual from 'deep-equal';
 
-import { IHeaderMenuItemProps } from '@definitions/ui';
+import { IHeaderMenuItemProps } from '@/definitions/ui';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

@@ -1,9 +1,9 @@
+import { gql } from '@apollo/client';
+
 import {
   ChatMessageGetAttachmentUploadUrisInput,
   ChatMessageListInput, ChatMessageSendInput, PaginatedInput, UserLoginInput, UserSignupInput,
-} from '@definitions/graphql';
-
-import { gql } from '@apollo/client';
+} from '@/definitions/graphql';
 
 export interface IGQLVariables<Input> {
   data: Input;

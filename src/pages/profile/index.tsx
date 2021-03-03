@@ -2,14 +2,14 @@ import React from 'react';
 
 import deepEqual from 'deep-equal';
 
-import UserQueries from '@api/graphql/UserQueries';
-
-import { Query } from '@definitions/graphql';
-import { IUserAuthState } from '@definitions/user';
-
-import useAuth from '@lib/hooks/useAuth';
-
 import { useQuery } from '@apollo/client';
+
+import UserQueries from '@/api/graphql/UserQueries';
+
+import { Query } from '@/definitions/graphql';
+import { IUserAuthState } from '@/definitions/user';
+
+import useAuth from '@/lib/hooks/useAuth';
 
 function ProfilePage() {
   useAuth({

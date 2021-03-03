@@ -1,6 +1,6 @@
-import { IUserAuthState } from '@definitions/user';
-
 import { makeVar } from '@apollo/client';
+
+import { IUserAuthState } from '@/definitions/user';
 
 const storeDefaultValues = {
   token: '',

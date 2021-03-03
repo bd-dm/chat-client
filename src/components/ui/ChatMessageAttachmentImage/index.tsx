@@ -4,12 +4,12 @@ import Image from 'next/image';
 
 import deepEqual from 'deep-equal';
 
-import ChatMessageAttachmentModal from '@components/ui/ChatMessageAttachmentModal';
+import ChatMessageAttachmentModal from '@/components/ui/ChatMessageAttachmentModal';
 
-import { IChatMessageAttachmentProps } from '@definitions/ui';
+import { IChatMessageAttachmentProps } from '@/definitions/ui';
 
-import useModal from '@lib/hooks/useModal';
-import { styleImport } from '@lib/utils/style';
+import useModal from '@/lib/hooks/useModal';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

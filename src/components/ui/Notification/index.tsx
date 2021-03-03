@@ -2,10 +2,10 @@ import React, { useCallback, useState } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import { INotificationProps } from '@definitions/ui';
+import { INotificationProps } from '@/definitions/ui';
 
-import { stripChars } from '@lib/utils/strings';
-import { styleImport } from '@lib/utils/style';
+import { stripChars } from '@/lib/utils/strings';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

@@ -1,10 +1,10 @@
-import UserQueries from '@api/graphql/UserQueries';
-
-import { ChatMessage, PaginatedPageMeta, Query } from '@definitions/graphql';
-
-import apolloClient from '@lib/classes/ApiClient';
-
 import { ApolloClient } from '@apollo/client';
+
+import UserQueries from '@/api/graphql/UserQueries';
+
+import { ChatMessage, PaginatedPageMeta, Query } from '@/definitions/graphql';
+
+import apolloClient from '@/lib/classes/ApiClient';
 
 class ChatMessageModel {
   private apolloClient: ApolloClient<any>;

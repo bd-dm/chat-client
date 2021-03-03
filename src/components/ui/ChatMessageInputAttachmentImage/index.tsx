@@ -4,10 +4,10 @@ import Image from 'next/image';
 
 import deepEqual from 'deep-equal';
 
-import { IChatMessageInputAttachmentProps } from '@definitions/ui';
+import { IChatMessageInputAttachmentProps } from '@/definitions/ui';
 
-import { fileToDataUrl } from '@lib/utils/files';
-import { styleImport } from '@lib/utils/style';
+import { fileToDataUrl } from '@/lib/utils/files';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

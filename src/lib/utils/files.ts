@@ -1,9 +1,9 @@
 import axios from 'axios';
 import jsFileDownload from 'js-file-download';
 
-import { FileUri } from '@definitions/graphql';
+import { FileUri } from '@/definitions/graphql';
 
-import { getExtension, removeExtension, sliceWithDots } from '@lib/utils/strings';
+import { getExtension, removeExtension, sliceWithDots } from '@/lib/utils/strings';
 
 export const fileGetReader = (
   onCompleted: (result: FileReader['result']) => void,

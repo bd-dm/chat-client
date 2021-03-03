@@ -4,13 +4,13 @@ import Head from 'next/head';
 
 import deepEqual from 'deep-equal';
 
-import { ModalContextProvider } from '@components/context/ModalContext';
-import { NotificationContextProvider } from '@components/context/NotificationContext';
-import Header from '@components/ui/Header';
+import { ModalContextProvider } from '@/components/context/ModalContext';
+import { NotificationContextProvider } from '@/components/context/NotificationContext';
+import Header from '@/components/ui/Header';
 
-import { IPageLayoutProps } from '@definitions/layout';
+import { IPageLayoutProps } from '@/definitions/layout';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

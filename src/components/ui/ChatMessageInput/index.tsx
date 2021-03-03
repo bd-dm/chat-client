@@ -2,14 +2,14 @@ import React, { KeyboardEvent, useMemo } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import Button from '@components/ui/Button';
-import ButtonFileInput from '@components/ui/ButtonFileInput';
-import ChatMessageInputAttachment from '@components/ui/ChatMessageInputAttachment';
-import TextArea from '@components/ui/TextArea';
+import Button from '@/components/ui/Button';
+import ButtonFileInput from '@/components/ui/ButtonFileInput';
+import ChatMessageInputAttachment from '@/components/ui/ChatMessageInputAttachment';
+import TextArea from '@/components/ui/TextArea';
 
-import { ITextInputChatMessageProps } from '@definitions/ui';
+import { ITextInputChatMessageProps } from '@/definitions/ui';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

@@ -2,16 +2,16 @@ import React, { useState } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import Notification from '@components/ui/Notification';
+import Notification from '@/components/ui/Notification';
 
 import {
   INotification,
   INotificationContextProviderProps,
   INotificationContextValue,
-} from '@definitions/context';
+} from '@/definitions/context';
 
-import { getRandomString } from '@lib/utils/strings';
-import { styleImport } from '@lib/utils/style';
+import { getRandomString } from '@/lib/utils/strings';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

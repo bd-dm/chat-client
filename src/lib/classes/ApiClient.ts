@@ -1,13 +1,14 @@
-import authLink from '@lib/links/authLink';
-import errorLink from '@lib/links/errorLink';
-
 import {
   ApolloClient,
   from,
   HttpLink,
   InMemoryCache,
 } from '@apollo/client';
-import config from '@config';
+
+import authLink from '@/lib/links/authLink';
+import errorLink from '@/lib/links/errorLink';
+
+import config from '@/config';
 
 const link = from([
   errorLink,

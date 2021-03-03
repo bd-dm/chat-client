@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 
-import UserQueries from '@api/graphql/UserQueries';
-
-import { Query } from '@definitions/graphql';
-import { IUseUser } from '@definitions/user';
-
-import useAuth from '@lib/hooks/useAuth';
-
 import { useLazyQuery } from '@apollo/client';
+
+import UserQueries from '@/api/graphql/UserQueries';
+
+import { Query } from '@/definitions/graphql';
+import { IUseUser } from '@/definitions/user';
+
+import useAuth from '@/lib/hooks/useAuth';
 
 const useUser = (): IUseUser => {
   const isAuthorized = useAuth();

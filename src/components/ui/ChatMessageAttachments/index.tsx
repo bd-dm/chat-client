@@ -2,13 +2,13 @@ import React, { useMemo } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import ChatMessageAttachment from '@components/ui/ChatMessageAttachment';
+import ChatMessageAttachment from '@/components/ui/ChatMessageAttachment';
 
-import { FileUri } from '@definitions/graphql';
-import { IChatMessageAttachmentsProps } from '@definitions/ui';
+import { FileUri } from '@/definitions/graphql';
+import { IChatMessageAttachmentsProps } from '@/definitions/ui';
 
-import { getAttachmentType } from '@lib/utils/attachments';
-import { styleImport } from '@lib/utils/style';
+import { getAttachmentType } from '@/lib/utils/attachments';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

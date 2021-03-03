@@ -2,22 +2,22 @@ import React, { useEffect, useState } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import UserQueries from '@api/graphql/UserQueries';
+import { useLazyQuery } from '@apollo/client';
 
-import Button from '@components/ui/Button';
-import FormRow from '@components/ui/FormRow';
-import TextInput from '@components/ui/TextInput';
+import UserQueries from '@/api/graphql/UserQueries';
+
+import Button from '@/components/ui/Button';
+import FormRow from '@/components/ui/FormRow';
+import TextInput from '@/components/ui/TextInput';
 
 import {
   Query, QueryUserLoginArgs,
-} from '@definitions/graphql';
-import { IUserAuthState } from '@definitions/user';
+} from '@/definitions/graphql';
+import { IUserAuthState } from '@/definitions/user';
 
-import useAuth from '@lib/hooks/useAuth';
+import useAuth from '@/lib/hooks/useAuth';
 
-import User from '@models/User';
-
-import { useLazyQuery } from '@apollo/client';
+import User from '@/models/User';
 
 interface ILoginFormState {
   email: string;

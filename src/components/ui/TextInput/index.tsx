@@ -2,7 +2,7 @@ import React, { FormEvent, KeyboardEvent } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import { ITextInputProps } from '@definitions/ui';
+import { ITextInputProps } from '@/definitions/ui';
 
 function TextInput(props: ITextInputProps) {
   const onChange = (e: FormEvent<HTMLInputElement>) => {

@@ -2,11 +2,11 @@ import React, { useRef } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import Button from '@components/ui/Button';
+import Button from '@/components/ui/Button';
 
-import { IButtonFileInputProps } from '@definitions/ui';
+import { IButtonFileInputProps } from '@/definitions/ui';
 
-import { styleImport } from '@lib/utils/style';
+import { styleImport } from '@/lib/utils/style';
 
 import stylesFile from './index.module.scss';
 

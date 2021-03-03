@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 
 import deepEqual from 'deep-equal';
 
-import Modal from '@components/ui/Modal';
+import Modal from '@/components/ui/Modal';
 
 import {
   IModalContextProviderProps, IModalContextValue, IModalOptions,
-} from '@definitions/context';
+} from '@/definitions/context';
 
 const defaultValue = {
   isActive: false,

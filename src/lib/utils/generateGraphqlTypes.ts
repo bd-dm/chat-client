@@ -1,9 +1,9 @@
 /* eslint-disable import/first */
 require('dotenv').config();
 
-import config from '../../config';
-
 import { generate } from '@graphql-codegen/cli';
+
+import config from '../../config';
 
 (async () => {
   await generate(
