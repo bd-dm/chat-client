@@ -47,11 +47,13 @@ function ChatMessage(props: IChatMessageProps) {
             } : {}}
           >
             {message.attachments.map((attachment) => (
-              <ChatMessageAttachment
-                attachment={attachment}
-                attachments={message.attachments}
-                key={attachment.id}
-              />
+              <>
+                <ChatMessageAttachment
+                  attachment={attachment}
+                  attachments={message.attachments}
+                  key={attachment.id}
+                />
+              </>
             ))}
           </div>
         )}

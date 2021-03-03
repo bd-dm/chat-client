@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -7,7 +7,7 @@ import mime from 'mime-types';
 
 import { IChatMessageAttachmentProps } from '@definitions/ui';
 
-import { fileDownload, filePrintName } from '@lib/utils/files';
+import { fileDownload, filePrintName, isImageExists } from '@lib/utils/files';
 import { getExtension } from '@lib/utils/strings';
 import { styleImport } from '@lib/utils/style';
 
@@ -17,7 +17,22 @@ const styles = styleImport(stylesFile);
 
 function ChatMessageAttachmentDefault(props: IChatMessageAttachmentProps) {
   const [isLoading, setIsLoading] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string | null>(null);
   const { attachment } = props;
+
+  useEffect(() => {
+    (
+      async () => {
+        const fileName = mime.extension(attachment.mime || '') || getExtension(attachment.name);
+        const filePathDefault = '/assets/mime/default.png';
+        const filePath = `/assets/mime/${fileName}.png`;
+
+        const hasAccess = await isImageExists(filePath);
+
+        setImgSrc(hasAccess ? filePath : filePathDefault);
+      }
+    )();
+  }, [attachment.id]);
 
   const onAttachmentPress = async () => {
     setIsLoading(true);
@@ -35,27 +50,27 @@ function ChatMessageAttachmentDefault(props: IChatMessageAttachmentProps) {
         }
       }}
     >
-      {!!attachment.mime && (
-        <>
-          <div className={styles('icon')}>
+      <>
+        <div className={styles('icon')}>
+          {imgSrc && (
             <Image
               alt={filePrintName(attachment.name)}
               layout="fill"
               objectFit="contain"
               quality={100}
-              src={`/assets/mime/${mime.extension(attachment.mime) || getExtension(attachment.name)}.png`}
+              src={imgSrc}
             />
-          </div>
-          <div className={styles('name')}>
-            {isLoading
-              ? 'Загрузка...' : (
-                <>
-                  {filePrintName(attachment.name, 40)}
-                </>
-              )}
-          </div>
-        </>
-      )}
+          )}
+        </div>
+        <div className={styles('name')}>
+          {isLoading
+            ? 'Загрузка...' : (
+              <>
+                {filePrintName(attachment.name, 40)}
+              </>
+            )}
+        </div>
+      </>
     </div>
   );
 }

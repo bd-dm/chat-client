@@ -116,3 +116,23 @@ export const filePrintName = (name: string, length: number = 30): string => {
 
   return slicedName;
 };
+
+export const isImageExists = async (path: string) => {
+  try {
+    const img = new Image();
+
+    return new Promise((resolve) => {
+      img.onload = () => {
+        resolve(true);
+      };
+
+      img.onerror = () => {
+        resolve(false);
+      };
+
+      img.src = path;
+    });
+  } catch (err) {
+    return false;
+  }
+};

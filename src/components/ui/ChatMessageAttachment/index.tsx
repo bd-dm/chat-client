@@ -7,17 +7,19 @@ import ChatMessageAttachmentImage from '@components/ui/ChatMessageAttachmentImag
 
 import { IChatMessageAttachmentProps } from '@definitions/ui';
 
+import { getAttachmentType } from '@lib/utils/attachments';
+
+import { ATTACHMENT_TYPE } from '@consts';
+
 function ChatMessageAttachment(props: IChatMessageAttachmentProps) {
   const { attachment } = props;
 
-  switch (attachment.mime) {
-    case 'image/png':
-    case 'image/jpg':
-    case 'image/jpeg':
+  switch (getAttachmentType(attachment.mime)) {
+    case ATTACHMENT_TYPE.IMAGE:
       return (
         <ChatMessageAttachmentImage {...props} />
       );
-    default:
+    case ATTACHMENT_TYPE.DEFAULT:
       return (
         <ChatMessageAttachmentDefault {...props} />
       );

@@ -6,17 +6,20 @@ import ChatMessageAttachmentModalImage from '@components/ui/ChatMessageAttachmen
 
 import { IChatMessageAttachmentModalProps } from '@definitions/ui';
 
+import { getAttachmentType } from '@lib/utils/attachments';
+
+import { ATTACHMENT_TYPE } from '@consts';
+
 function ChatMessageAttachmentModal(props: IChatMessageAttachmentModalProps) {
   const {
     current,
   } = props;
 
-  switch (current.mime) {
-    case 'image/png':
-    case 'image/jpg':
-    case 'image/jpeg':
+  switch (getAttachmentType(current.mime)) {
+    case ATTACHMENT_TYPE.IMAGE:
       return (<ChatMessageAttachmentModalImage {...props} />);
-    default: return null;
+    case ATTACHMENT_TYPE.DEFAULT:
+      return null;
   }
 }
 

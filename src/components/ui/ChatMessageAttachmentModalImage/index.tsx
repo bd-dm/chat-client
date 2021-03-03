@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 
 import Image from 'next/image';
 
@@ -6,18 +6,28 @@ import deepEqual from 'deep-equal';
 
 import { IChatMessageAttachmentModalProps } from '@definitions/ui';
 
+import { getAttachmentType } from '@lib/utils/attachments';
 import { styleImport } from '@lib/utils/style';
 
 import stylesFile from './index.module.scss';
+
+import { ATTACHMENT_TYPE } from '@consts';
 
 const styles = styleImport(stylesFile);
 
 function ChatMessageAttachmentModalImage(props: IChatMessageAttachmentModalProps) {
   const {
     onClosePress,
-    attachments,
+    attachments: allAttachments,
     current,
   } = props;
+
+  const attachments = useMemo(
+    () => allAttachments.filter(
+      (attachment) => getAttachmentType(attachment.mime) === ATTACHMENT_TYPE.IMAGE,
+    ),
+    [allAttachments],
+  );
 
   const [data, setData] = useState(current);
 
